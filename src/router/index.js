@@ -71,8 +71,11 @@ const router = new Router({
     {
       path: '/register',
       component: r => require.ensure([], () => r(require('@/views/Register')), 'register')
+		},
+    {
+      path: '/search',
+      component: r => require.ensure([], () => r(require('@/views/Search')), 'search')
     }
-
   ],
   scrollBehavior(to, from, savedPosition) {
     return {x: 0, y: 0}
