@@ -31,7 +31,7 @@ const router = new Router({
     },
     {
       path: '',
-      name: 'Home',
+      // name: 'Home',
       component: Home,
       children: [
         {
