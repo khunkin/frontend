@@ -29,6 +29,7 @@ export function getTag(id) {
 }
 
 export function getTagDetail(id) {
+	console.log(`/tags/detail/${id}`)
   return request({
     url: `/tags/detail/${id}`,
     method: 'get',
