@@ -30,13 +30,14 @@
 
       <div class="me-login-design">
         <p>
+          <span class="me-login-design-pure-text">
           已有账号？
+          </span>
           <strong>
             <router-link to="/login" class="me-login-design-color">登录</router-link>
           </strong>
-
           <strong>
-            <router-link to="/" class="me-login-design-color">回首页</router-link>
+            <router-link to="/" class="me-login-design-color">返回首页</router-link>
           </strong>
         </p>
       </div>
@@ -173,8 +174,16 @@ body {
   font-size: 12px;
 }
 
+.me-login-design-pure-text{
+  opacity: 0.5;
+}
+
 .me-login-design-color {
-  color: #5fb878 !important;
+  color: #5fb878 !important; 
+  opacity: 0.5;
+}
+.me-login-design-color:hover{
+  opacity: 1;
 }
 
 .me-login-button {

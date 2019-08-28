@@ -26,12 +26,14 @@
 
       <div class="me-login-design">
         <p>
+          <span class="me-login-design-pure-text">
           没有账号？
+          </span>
           <strong>
             <router-link to="/register" class="me-login-design-color">注册</router-link>
           </strong>
           <strong>
-            <router-link to="/" class="me-login-design-color">回首页</router-link>
+            <router-link to="/" class="me-login-design-color">返回首页</router-link>
           </strong>
         </p>
       </div>
@@ -76,7 +78,9 @@ export default {
           that.$store
             .dispatch("login", that.userForm)
             .then(() => {
-              that.$router.go(-1);
+              that.$router.push({path:`/`});
+              // that.$router.go(-1);
+              console.log(that.$router);
             })
             .catch(error => {
               if (error !== "error") {
@@ -157,8 +161,16 @@ body {
   font-size: 12px;
 }
 
+.me-login-design-pure-text{
+  opacity: 0.5;
+}
+
 .me-login-design-color {
-  color: #5fb878 !important;
+  color: #5fb878 !important; 
+  opacity: 0.5;
+}
+.me-login-design-color:hover{
+  opacity: 1;
 }
 
 .me-login-button {

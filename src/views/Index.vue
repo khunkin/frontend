@@ -10,14 +10,15 @@
 
       <el-aside>
 
-        <card-me class="me-area"></card-me>
+        <!-- <card-me class="me-area"></card-me> -->
+
         <card-tag :tags="hotTags"></card-tag>
 
-        <card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
+        <card-article cardHeader="热门文章" :articles="hotArticles"></card-article>
 
-        <card-archive cardHeader="文章归档" :archives="archives"></card-archive>
+        <!-- <card-archive cardHeader="文章归档" :archives="archives"></card-archive> -->
 
-        <card-article cardHeader="最新文章" :articles="newArticles"></card-article>
+        <!-- <card-article cardHeader="最新文章" :articles="newArticles"></card-article> -->
 
       </el-aside>
 
@@ -59,7 +60,7 @@
           that.hotArticles = data.data
         }).catch(error => {
           if (error !== 'error') {
-            that.$message({type: 'error', message: '最热文章加载失败!', showClose: true})
+            that.$message({type: 'error', message: '热门文章加载失败!', showClose: true})
           }
 
         })
@@ -83,7 +84,7 @@
           that.hotTags = data.data
         }).catch(error => {
           if (error !== 'error') {
-            that.$message({type: 'error', message: '最热标签加载失败!', showClose: true})
+            that.$message({type: 'error', message: '热门标签加载失败!', showClose: true})
           }
 
         })
