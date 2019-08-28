@@ -5,7 +5,7 @@
     </div>
 
     <ul class="me-category-list">
-      <li v-for="a in articles" @click="view(a.id)" :style="itemStyle" :key="a.id" class="me-category-item"><a>{{a.title}}</a>
+      <li v-for="a in articles" @click="view(a.id)" :style="itemStyle" :key="a.id" class="me-category-item"><a class="me-category-title">{{a.title}}</a>
       </li>
     </ul>
   </el-card>
@@ -47,12 +47,21 @@
   }
 
   .me-category-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 24px;
     padding: 4px;
     font-size: 14px;
-    color: #5FB878;
+    color: #00ccff;
   }
 
   .me-category-item a:hover {
+    font-size: 15px;
     text-decoration: underline;
+  }
+
+  .me-category-title {
+    transition: all 0.15s;
   }
 </style>

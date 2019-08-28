@@ -14,7 +14,7 @@
           <h1 class="me-view-title">{{article.title}}</h1>
           <div class="me-view-author">
             <a class="">
-              <img class="me-view-picture" :src="article.author.avatar"></img>
+              <img class="me-view-picture" :src="article.author.avatar"/>
             </a>
             <div class="me-view-info">
               <span>{{article.author.nickname}}</span>
@@ -39,7 +39,7 @@
 
           <div class="me-view-end">
             <el-alert
-              title="文章End..."
+              title="The End"
               type="success"
               center
               :closable="false">
@@ -63,7 +63,7 @@
               <el-row :gutter="20">
                 <el-col :span="2">
                   <a class="">
-                    <img class="me-view-picture" :src="avatar"></img>
+                    <img class="me-view-picture" :src="avatar"/>
                   </a>
                 </el-col>
                 <el-col :span="22">
@@ -262,7 +262,7 @@
     border: 1px solid #ddd;
     border-radius: 50%;
     vertical-align: middle;
-    background-color: #5fb878;
+    background-color: #00ccff;
   }
 
   .me-view-info {

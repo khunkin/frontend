@@ -12,7 +12,7 @@
           <el-menu
             :router="true"
             menu-trigger="click"
-            active-text-color="#5FB878"
+            active-text-color="#00ccff"
             :default-active="activeIndex"
             mode="horizontal"
           >
@@ -28,7 +28,7 @@
               <div>
                 <div class="search-input">
                   <input
-                    placeholder=" 🔍搜索"
+                    placeholder=" 🔍 搜索"
                     type="text"
                     class="form-control"
                     v-model="keyword"
@@ -49,9 +49,9 @@
             :router="true"
             menu-trigger="click"
             mode="horizontal"
-            active-text-color="#5FB878"
+            active-text-color="#00ccff"
           >
-            <!-- Start If logged in -->
+            <!-- Start If not logged in -->
             <template v-if="!user.login">
               <el-menu-item index="/login">
                 <el-button type="text">登录</el-button>
@@ -60,11 +60,12 @@
                 <el-button type="text">注册</el-button>
               </el-menu-item>
             </template>
-            <!-- If not logged in -->
+            <!-- If logged in -->
             <template v-else>
               <el-submenu index>
                 <template slot="title">
-                  <img class="me-header-picture" :src="user.avatar" />
+                  <!-- <img class="me-header-picture" :src="user.avatar" /> -->
+                  <span>{{user.account}}</span>
                 </template>
                 <el-menu-item index @click="logout">
                   <i class="el-icon-back"></i>退出
@@ -102,9 +103,11 @@ export default {
     user() {
       let login = this.$store.state.account.length != 0;
       let avatar = this.$store.state.avatar;
+      let account = this.$store.state.account;
       return {
         login,
-        avatar
+        avatar,
+        account
       };
     }
   },
@@ -114,10 +117,11 @@ export default {
       if (!path.startsWith("/searchResultByTitle")) {
         that.$router.push({ path: `/searchResultByTitle/${keyword}` });
       } else {
-        console.log("In result " + keyword)
+        console.log("In result " + keyword);
         // that.$router.replace({ path: `/searchResultByTitle/${keyword}` });
-        window.location.href = 'http://localhost:8080/' + `#/searchResultByTitle/${keyword}`
-        window.location.reload(false)
+        window.location.href =
+          "http://localhost:8080/" + `#/searchResultByTitle/${keyword}`;
+        window.location.reload(false);
       }
     },
     search() {
@@ -141,6 +145,10 @@ export default {
 </script>
 
 <style type="text/css">
+.el-button--text {
+  color: #00ccff;
+}
+
 .el-header {
   position: fixed;
   z-index: 1024;
@@ -168,13 +176,14 @@ export default {
   border: 1px solid #ddd;
   border-radius: 50%;
   vertical-align: middle;
-  background-color: #5fb878;
+  background-color: #00ccff;
 }
 .search-input {
   height: 30px;
   width: 210px;
   margin: 0 auto;
   margin-top: 15px;
+  margin-left: 50px;
   position: relative;
 }
 

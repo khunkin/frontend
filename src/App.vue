@@ -1,43 +1,63 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" :style="backgroundDiv">
+    <router-view />
     <go-top></go-top>
   </div>
 </template>
 
 <script>
-import GoTop from '@/components/gotop/GoTop'
+import GoTop from "@/components/gotop/GoTop";
 export default {
-  name: 'App',
-  components: { GoTop }
-}
+  name: "App",
+  components: { GoTop },
+  data() {
+    return {
+      backgroundDiv: {
+        backgroundImage:
+          "url(" + require("../src/assets/img/test2.jpg") + ")",
+        backgroundRepeat: "repeat",
+        backgroundSize: "100%"
+      }
+    };
+  }
+};
 </script>
 
 <style>
-* { margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+}
 
 body {
-	background-color: #f5f5f5;
-	font-weight: 400;
-	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-	line-height: 1.5;
+  background-color: #89c2bd59;
+  font-weight: 400;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  line-height: 1.5;
 }
 a {
-    cursor: pointer;
-    text-decoration: none;
-    transition: none 86ms ease-out;
+  cursor: pointer;
+  text-decoration: none;
+  transition: none 86ms ease-out;
 }
 a:hover {
-	color: #5FB878;
+  color: #5fb878;
 }
-.me-area{
-	background-color: #fff;
+.me-area {
+  background-color: #fff;
 }
-html{height:100%;}
-body{min-height:100%;}
-body{position:relative;}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+body {
+  position: relative;
+}
 
 .me-pull-right {
-	float: right;
+  float: right;
 }
 </style>

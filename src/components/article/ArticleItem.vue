@@ -66,6 +66,8 @@
 
   .me-article-title {
     font-weight: 600;
+    padding-left: 10px;
+    border-left: 4px solid rgba(33, 96, 167, 0.8)
   }
 
   .me-article-icon {

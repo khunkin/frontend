@@ -110,7 +110,7 @@
   }
 
   .el-card:not(:first-child) {
-    margin-top: 10px;
+    margin-top: 12px;
 
   }
 </style>

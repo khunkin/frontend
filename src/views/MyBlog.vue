@@ -114,7 +114,7 @@
 
     },
     components: {
-      'card-me': CardMe,
+      'x': CardMe,
       'card-article': CardArticle,
       'card-tag': CardTag,
       ArticleScrollPage,

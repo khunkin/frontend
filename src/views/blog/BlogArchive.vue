@@ -116,7 +116,7 @@
     margin-top: 18px;
     padding: 4px;
     font-size: 18px;
-    color: #5FB878;
+    color: #00ccff;
   }
 
   .me-order-list {
