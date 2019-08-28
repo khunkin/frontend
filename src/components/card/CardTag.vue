@@ -7,8 +7,7 @@
 
     <ul class="me-tag-list">
       <li class="me-tag-item" v-for="t in tags" :key="t.id">
-        <!--type="primary"-->
-        <el-button class="me-tag-button" @click="tag(t.id)" size="mini" type="primary" round plain>{{t.tagname}}</el-button>
+        <el-button class="me-tag-button" @click="tag(t.id)" size="middle" type="text" round plain>{{t.tagname}}</el-button>
       </li>
     </ul>
   </el-card>
@@ -51,18 +50,22 @@
   }
 
   .me-tag-item {
+    transition: all 0.5s;
     display: inline-block;
     padding: 4px;
     font-size: 14px;
-    color: #5FB878;
+    color: #00ccff;
   }
 
-  .me-tag-item a:hover {
+  .me-tag-item :hover {
     text-decoration: underline;
+    color: #003366;
+    font-size: 15px;
   }
 
   .me-tag-button {
     border: 0;
-    color: #FFF;
-  }
+    color: #00CCFF;
+    padding: 0;
+  } 
 </style>

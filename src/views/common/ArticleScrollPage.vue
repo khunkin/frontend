@@ -111,6 +111,6 @@
   }
 
   .el-card:not(:first-child) {
-    margin-top: 10px;
+    margin-top: 16px;
   }
 </style>

@@ -55,7 +55,7 @@
   .me-author-name {
     text-align: center;
     font-size: 30px;
-    border-bottom: 1px solid #5FB878;
+    border-bottom: 1px solid #00ccff;
   }
 
   .me-author-description {

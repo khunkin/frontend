@@ -39,7 +39,7 @@
 
           <div class="me-view-end">
             <el-alert
-              title="文章End..."
+              title="End"
               type="success"
               center
               :closable="false">
@@ -262,7 +262,7 @@
     border: 1px solid #ddd;
     border-radius: 50%;
     vertical-align: middle;
-    background-color: #5fb878;
+    background-color: #00ccff;
   }
 
   .me-view-info {

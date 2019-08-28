@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 body {
-  background: #5fb878;
+  background: #00ccff;
 }
 #login {
   min-width: 100%;
@@ -166,7 +166,7 @@ body {
 }
 
 .me-login-design-color {
-  color: #5fb878 !important; 
+  color: #00ccff !important; 
   opacity: 0.5;
 }
 .me-login-design-color:hover{

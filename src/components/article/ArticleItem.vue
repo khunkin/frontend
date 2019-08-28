@@ -4,24 +4,25 @@
 
       <a @click="view(id)" class="me-article-title">{{title}}</a>
       <el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
-      <span class="me-pull-right me-article-count">
-	    	<i class="me-icon-comment"></i>&nbsp;{{commentCounts}}
-	    </span>
-      <span class="me-pull-right me-article-count">
-	    	<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
-	    </span>
+      
     </div>
 
     <div class="me-artile-description">
       {{summary}}
     </div>
     <div class="me-article-footer">
-	  	<span class="me-article-author">
-	    	<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
-	    </span>
+	  	
 
       <el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success">{{t.tagname}}</el-tag>
-
+      <span class="me-pull-right me-article-count">
+	    	<i class="me-icon-comment"></i>&nbsp;{{commentCounts}}
+	    </span>
+      <span class="me-pull-right me-article-count">
+	    	<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
+	    </span>
+      <span class="me-article-count me-pull-right">
+	    	<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
+	    </span>
       <span class="me-pull-right me-article-count">
 	    	<i class="el-icon-time"></i>&nbsp;{{createDate | format}}
 	    </span>
@@ -66,6 +67,8 @@
 
   .me-article-title {
     font-weight: 600;
+    padding-left: 6px;
+    border-left: 4px solid #d6dad5;
   }
 
   .me-article-icon {
@@ -83,8 +86,8 @@
   }
 
   .me-artile-description {
-    font-size: 13px;
-    line-height: 24px;
+    font-size: 15px;
+    line-height: 26px;
     margin-bottom: 10px;
   }
 
@@ -96,6 +99,9 @@
 
   .el-tag {
     margin-left: 6px;
+    background-color: #fff;
+    color: #00ccff;
+    border-color: #f5f5f5;
   }
 
 </style>

@@ -10,7 +10,7 @@
       </el-col>
 
       <el-col v-if="!simple" :span="16">
-        <el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex"
+        <el-menu :router=true menu-trigger="click" active-text-color="#00ccff" :default-active="activeIndex"
                  mode="horizontal">
           <el-menu-item index="/">首页</el-menu-item>
 					<!--个人博文列表名称：我的博客-->
@@ -62,7 +62,7 @@
       </template>
 
       <el-col :span="4">
-        <el-menu :router=true menu-trigger="click" mode="horizontal" active-text-color="#5FB878">
+        <el-menu :router=true menu-trigger="click" mode="horizontal" active-text-color="#00ccff">
 
           <template v-if="!user.login">
             <el-menu-item index="/login">
@@ -204,6 +204,9 @@ import logoSelect from './SearchLogo.vue';
 </script>
 
 <style type="text/css">
+  .el-button--text{
+    color: #00ccff;
+  }
 	.el-header {
     position: fixed;
     z-index: 1024;
