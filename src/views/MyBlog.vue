@@ -4,13 +4,14 @@
 
       <el-main class="me-articles">
 
-        <article-scroll-page></article-scroll-page>
+        <card-article cardHeader="我的博客" :articles="myBlogs"></card-article>
 
       </el-main>
 
       <el-aside>
 
         <card-tag :tags="hotTags"></card-tag>
+
 
         <card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
 
@@ -31,7 +32,7 @@
   import CardTag from '@/components/card/CardTag'
   import ArticleScrollPage from '@/views/common/ArticleScrollPage'
 
-  import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
+  import {getArticles, getHotArtices, getNewArtices, getArticlesByUser} from '@/api/article'
   import {getHotTags} from '@/api/tag'
   import {listArchives} from '@/api/article'
 
@@ -41,10 +42,12 @@
       this.getHotArtices()
       this.getNewArtices()
       this.getHotTags()
-      this.listArchives()
+			this.listArchives()
+			this.getArticlesByUser()
     },
     data() {
       return {
+				myBlogs: [],
         hotTags: [],
         hotArticles: [],
         newArticles: [],
@@ -52,6 +55,18 @@
       }
     },
     methods: {
+			getArticlesByUser() {
+				let that = this
+        getArticlesByUser(21).then(data => {
+				//console.log("Start fetching articles of current user");
+					//console.log(data);
+          that.myBlogs = data.data
+        }).catch(error => {
+          if (error !== 'error') {
+            that.$message({type: 'error', message: '用户个人文章加载失败!', showClose: true})
+          }
+        })
+			},
       getHotArtices() {
         let that = this
         getHotArtices().then(data => {

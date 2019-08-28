@@ -11,12 +11,12 @@ import BlogView from '@/views/blog/BlogView'
 import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
 import BlogCategoryTag from '@/views/blog/BlogCategoryTag'*/
 
-import {Message} from 'element-ui';
+import { Message } from 'element-ui';
 
 
 import store from '@/store'
 
-import {getToken} from '@/request/token'
+import { getToken } from '@/request/token'
 
 Vue.use(Router)
 
@@ -35,25 +35,31 @@ const router = new Router({
       component: Home,
       children: [
         {
+          // base component
           path: '/',
           component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
         },
         {
-          path: '/log',
-          component: r => require.ensure([], () => r(require('@/views/Log')), 'log')
+          path: '/myBlog',
+          component: r => require.ensure([], () => r(require('@/views/MyBlog')), 'myBlog')
+        },
+        {
+          path: '/searchResultByTitle/:keyword',
+          component: r => require.ensure([], () => r(require('@/views/SearchResult')), 'searchResult'),
+          meta: {
+            title: '搜索页面'
+          }
         },
         {
           path: '/archives/:year?/:month?',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogArchive')), 'archives')
         },
         {
-          path: '/messageBoard',
-          component: r => require.ensure([], () => r(require('@/views/MessageBoard')), 'messageboard')
-        },
-        {
           path: '/view/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogView')), 'blogview')
         },
+
+        // :type can be `tag` or `category`
         {
           path: '/:type/all',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogAllCategoryTag')), 'blogallcategorytag')
@@ -61,7 +67,23 @@ const router = new Router({
         {
           path: '/:type/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
-        }
+        },
+        // {
+        //   path: '/search',
+        //   component: r => require.ensure([], () => r(require('@/views/Search')), 'search')
+        // },
+        // {
+        //   path: '/follows',
+        //   component: r => require.ensure([], () => r(require('@/views/Follows')), 'follows')
+        // },
+        // {
+        //   path: '/log',
+        //   component: r => require.ensure([], () => r(require('@/views/Log')), 'log')
+        // },
+        // {
+        //   path: '/messageBoard',
+        //   component: r => require.ensure([], () => r(require('@/views/MessageBoard')), 'messageboard')
+        // }
       ]
     },
     {
@@ -71,39 +93,59 @@ const router = new Router({
     {
       path: '/register',
       component: r => require.ensure([], () => r(require('@/views/Register')), 'register')
-    }
-
+    },
+    {
+      path: '*',
+      component: r => require.ensure([], () => r(require('@/views/page404')), 'page404')
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
-    return {x: 0, y: 0}
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
   }
 })
 
 router.beforeEach((to, from, next) => {
 
+  // if already logged in
   if (getToken()) {
 
+    // and want to go to login page
     if (to.path === '/login') {
-      next({path: '/'})
-    } else {
+
+      // then jump to home page instead
+      next({ path: '/' })
+    }
+
+    // and want to go to other page rather than /login
+    else {
+      // if not have state info loaded, load it
       if (store.state.account.length === 0) {
-        store.dispatch('getUserInfo').then(data => { //获取用户信息
+        store.dispatch('getUserInfo').then(data => {
           next()
         }).catch(() => {
-          next({path: '/'})
+          next({ path: '/' })
         })
-      } else {
+      }
+      // otherwise go directly
+      else {
         next()
       }
     }
-  } else {
+  }
+
+  // if not logged in
+  else {
+    // check if destination page need privilege
     if (to.matched.some(r => r.meta.requireLogin)) {
       Message({
         type: 'warning',
         showClose: true,
         message: '请先登录哦'
       })
-
     }
     else {
       next();

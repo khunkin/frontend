@@ -18,9 +18,23 @@ export function getArticles(query, page) {
   })
 }
 
+export function getArticlesByTitlecontains(subTitle) {
+  return request({
+    url: `/search/byTitle/${subTitle}`,
+    method: 'get'
+  })
+}
+
 export function getHotArtices() {
   return request({
     url: '/articles/hot',
+    method: 'get'
+  })
+}
+
+export function follow(userId, followerId) {
+  return request({
+    url: `/follow/${userId}/${followerId}`,
     method: 'get'
   })
 }
@@ -49,6 +63,14 @@ export function getArticlesByCategory(id) {
 export function getArticlesByTag(id) {
   return request({
     url: `/articles/tag/${id}`,
+    method: 'get'
+  })
+}
+
+
+export function getArticlesByUser(id) {
+  return request({
+    url: `/articles/user/${id}`,
     method: 'get'
   })
 }
