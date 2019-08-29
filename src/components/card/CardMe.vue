@@ -1,20 +1,17 @@
 <template>
-  <el-card  v-if="!user.login">
-    <h1 class="me-author-name">Welome! Visitor~</h1>
-    <!--<div class="me-author-description">-->
-      <!--<span><i class="el-icon-location-outline"></i> &nbsp;山东&济南</span>-->
-      <!--<span><i class="me-icon-job"></i> &nbsp;java开发工程师</span>-->
-    <!--</div>-->
-    <!--<div class="me-author-tool">-->
-      <!--<i @click="showTool(qq)" :title="qq.title" class="me-icon-QQ"></i>-->
-      <!--<i @click="showTool(github)" :title="github.title" class="me-icon-github"></i>-->
-    <!--</div>-->
+  <el-card>
+    <h1 class="me-author-name">shimh</h1>
+    <div class="me-author-description">
+      <span><i class="el-icon-location-outline"></i> &nbsp;山东&济南</span>
+      <span><i class="me-icon-job"></i> &nbsp;java开发工程师</span>
+    </div>
+    <div class="me-author-tool">
+      <i @click="showTool(qq)" :title="qq.title" class="me-icon-QQ"></i>
+      <i @click="showTool(github)" :title="github.title" class="me-icon-github"></i>
+    </div>
   </el-card>
-  <el-card v-else>
-    <h3 class="me-author-name"> <img class="me-view-picture" :src="avatar"/> Welome! {{user.nickname}}</h3>
-  </el-card>
-</template>
 
+</template>
 
 <script>
   export default {
@@ -24,7 +21,7 @@
         qq: {title: 'QQ', message: '919431514'},
         github: {
           title: 'github',
-          message: '<a target="_blank" href="https://github.com/shimh-develop">https://github.com/shimh-develop</a>',
+          message: '<a target="_blank" href="https://github.com/shimh-develop">https://github.com/shimh-develop</a>'
         }
       }
     },
@@ -37,17 +34,7 @@
           message: '<strong>' + tool.message + '</strong>'
         });
       }
-    },
-    computed: {
-      user() {
-        let login = this.$store.state.account.length !== 0;
-        let avatar = this.$store.state.avatar;
-        let nickname = this.$store.state.name;
-        return {
-          login, avatar, nickname
-        }
-      }
-    },
+    }
   }
 </script>
 

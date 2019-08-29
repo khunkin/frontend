@@ -42,17 +42,13 @@ a {
   transition: none 86ms ease-out;
 }
 a:hover {
-<<<<<<< HEAD
-  color: #5fb878;
+  color: #00ccff;
 }
 .me-area {
   background-color: #fff;
 }
 html {
   height: 100%;
-=======
-	color: #00ccff;
->>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
 }
 body {
   min-height: 100%;

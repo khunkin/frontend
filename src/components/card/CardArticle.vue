@@ -50,27 +50,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-<<<<<<< HEAD
     height: 24px;
     padding: 4px;
     font-size: 14px;
     color: #00ccff;
-=======
-    height: 20px;
-    padding: 4px;
-    font-size: 14px;
-    color: #00CCFF;
->>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
   }
 
   .me-category-item a:hover {
     font-size: 15px;
     text-decoration: underline;
-    /* color: #003366; */
-  }
-
-  .me-category-title {
-    transition: all 0.5s;
   }
 
   .me-category-title {

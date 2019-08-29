@@ -107,15 +107,10 @@
 <style scoped>
   .el-card {
     border-radius: 0;
-    background-color: #ffffff;
   }
 
   .el-card:not(:first-child) {
-<<<<<<< HEAD
     margin-top: 12px;
 
-=======
-    margin-top: 16px;
->>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
   }
 </style>

@@ -79,8 +79,8 @@
         this.getArticleById(this.$route.params.id)
       }
 
-      this.getCategorysAndTags();
-      this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 200);
+      this.getCategorysAndTags()
+      this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 200)
 
       window.addEventListener('scroll', this.editorToolBarToFixedWrapper, false);
     },
@@ -149,39 +149,39 @@
     },
     methods: {
       getArticleById(id) {
-        let that = this;
+        let that = this
         getArticleById(id).then(data => {
 
-          Object.assign(that.articleForm, data.data);
-          that.articleForm.editor.value = data.data.body.content;
+          Object.assign(that.articleForm, data.data)
+          that.articleForm.editor.value = data.data.body.content
 
           let tags = this.articleForm.tags.map(function (item) {
             return item.id;
-          });
+          })
 
           this.articleForm.tags = tags
 
 
         }).catch(error => {
           if (error !== 'error') {
-            that.$message({type: 'error', message: '文章加载失败', showClose: true});
+            that.$message({type: 'error', message: '文章加载失败', showClose: true})
           }
         })
       },
       publishShow() {
         if (!this.articleForm.title) {
-          this.$message({message: '标题不能为空哦', type: 'warning', showClose: true});
-          return;
+          this.$message({message: '标题不能为空哦', type: 'warning', showClose: true})
+          return
         }
 
         if (this.articleForm.title.length > 30) {
-          this.$message({message: '标题不能大于30个字符', type: 'warning', showClose: true});
-          return;
+          this.$message({message: '标题不能大于30个字符', type: 'warning', showClose: true})
+          return
         }
 
         if (!this.articleForm.editor.ref.d_render) {
-          this.$message({message: '内容不能为空哦', type: 'warning', showClose: true});
-          return;
+          this.$message({message: '内容不能为空哦', type: 'warning', showClose: true})
+          return
         }
 
         this.publishVisible = true;
@@ -244,14 +244,14 @@
         })
       },
       getCategorysAndTags() {
-        let that = this;
+        let that = this
         getAllCategorys().then(data => {
           that.categorys = data.data
         }).catch(error => {
           if (error !== 'error') {
             that.$message({type: 'error', message: '文章分类加载失败', showClose: true})
           }
-        });
+        })
 
         getAllTags().then(data => {
           that.tags = data.data

@@ -39,11 +39,7 @@
 
           <div class="me-view-end">
             <el-alert
-<<<<<<< HEAD
               title="The End"
-=======
-              title="End"
->>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
               type="success"
               center
               :closable="false">
@@ -156,7 +152,7 @@
     },
     computed: {
       avatar() {
-        let avatar = this.$store.state.avatar;
+        let avatar = this.$store.state.avatar
 
         if (avatar.length > 0) {
           return avatar
@@ -175,10 +171,10 @@
         this.$router.push({path: `/write/${this.article.id}`})
       },
       getArticle() {
-        let that = this;
+        let that = this
         viewArticle(that.$route.params.id).then(data => {
-          Object.assign(that.article, data.data);
-          that.article.editor.value = data.data.body.content;
+          Object.assign(that.article, data.data)
+          that.article.editor.value = data.data.body.content
 
           that.getCommentsByArticle()
         }).catch(error => {
@@ -188,16 +184,16 @@
         })
       },
       publishComment() {
-        let that = this;
+        let that = this
         if (!that.comment.content) {
           return;
         }
-        that.comment.article.id = that.article.id;
+        that.comment.article.id = that.article.id
 
         publishComment(that.comment).then(data => {
-          that.$message({type: 'success', message: '评论成功', showClose: true});
-          that.comments.unshift(data.data);
-          that.commentCountsIncrement();
+          that.$message({type: 'success', message: '评论成功', showClose: true})
+          that.comments.unshift(data.data)
+          that.commentCountsIncrement()
           that.comment.content = ''
         }).catch(error => {
           if (error !== 'error') {
@@ -206,7 +202,7 @@
         })
       },
       getCommentsByArticle() {
-        let that = this;
+        let that = this
         getCommentsByArticle(that.article.id).then(data => {
           that.comments = data.data
         }).catch(error => {
