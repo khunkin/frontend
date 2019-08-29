@@ -6,10 +6,6 @@
     <base-header></base-header>
 
     <div class="me-login-box me-login-box-radius" :style="backgroundDiv">
-      <div class="login-title">
-        <h2 align="center" style="color:#8B0A50;size:px">注册</h2>
-      </div>
-
       <el-form ref="userForm" :model="userForm" :rules="rules">
         <el-form-item prop="account">
           <el-input placeholder="用户名" v-model="userForm.account"></el-input>
@@ -30,7 +26,9 @@
 
       <div class="me-login-design">
         <p>
-          已有账号？
+          <span class="me-login-design-pure-text">
+            已有账号？  
+          </span>
           <strong>
             <router-link to="/login" class="me-login-design-color">登录</router-link>
           </strong>
@@ -53,7 +51,7 @@ export default {
   data() {
     return {
       backgroundDiv: {
-        backgroundImage: "url(" + require("../assets/img/background.jpg") + ")",
+        backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
@@ -115,13 +113,13 @@ export default {
 </script>
 
 <style scoped>
-body {
-  background: #00ccff;
-}
-
 #login {
   min-width: 100%;
   min-height: 100%;
+}
+
+.el-form{
+  margin-top: 20px;
 }
 
 .login-title {
@@ -147,7 +145,7 @@ body {
 .me-login-box {
   position: absolute;
   width: 300px;
-  height: 320px;
+  height: 306px;
   background-color: white;
   margin-top: 150px;
   margin-left: -180px;
@@ -171,17 +169,46 @@ body {
   text-align: center;
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
+  margin-top: 45px;
+}
+
+.me-login-design-pure-text{
+  opacity: 0.5;
 }
 
 .me-login-design-color {
+  transition: 0.1s;
   color: #00ccff !important;
+  opacity: 0.5;
+}
+
+.me-login-design-color:focus,
+.me-login-design-color:active,
+.me-login-design-color:hover
+{
+  opacity: 1;
+  text-decoration: none;
 }
 
 .me-login-button {
   text-align: center;
 }
 
+.el-button--primary{
+  transition: 0.2s;
+}
+
+.el-button--primary:hover, 
+.el-button--primary:active, 
+.el-button:focus{
+  color: rgba(70, 138, 196, 1);
+  background-color: rgba(224, 247, 254, 1);
+  border-color: rgba(117, 197, 237, 1);
+}
+
+
 .me-login-button button {
   width: 100%;
 }
+
 </style>

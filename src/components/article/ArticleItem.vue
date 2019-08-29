@@ -98,6 +98,9 @@
 
   .el-tag {
     margin-left: 6px;
+    border-color: rgba(207, 233, 244, 1);
+    background-color: rgba(224, 247, 254, 1);
+    color: rgba(70, 138, 196, 1);
   }
 
 </style>
