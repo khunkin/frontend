@@ -23,14 +23,19 @@
       <div class="me-login-design">
         <p>
           <span class="me-login-design-pure-text">
+<<<<<<< HEAD
             没有账号？  
           </span>
           
+=======
+          没有账号？
+          </span>
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
           <strong>
             <router-link to="/register" class="me-login-design-color">注册</router-link>
           </strong>
           <strong>
-            <router-link to="/" class="me-login-design-color">回首页</router-link>
+            <router-link to="/" class="me-login-design-color">返回首页</router-link>
           </strong>
         </p>
       </div>
@@ -75,7 +80,13 @@ export default {
           that.$store
             .dispatch("login", that.userForm)
             .then(() => {
+<<<<<<< HEAD
               that.$router.push({ path: "/" });
+=======
+              that.$router.push({path:`/`});
+              // that.$router.go(-1);
+              console.log(that.$router);
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
             })
             .catch(error => {
               if (error !== "error") {
@@ -161,7 +172,12 @@ body {
   opacity: 0.5;
 }
 
+.me-login-design-pure-text{
+  opacity: 0.5;
+}
+
 .me-login-design-color {
+<<<<<<< HEAD
   transition: 0.1s;
   color: #00ccff !important;
   opacity: 0.5;
@@ -173,6 +189,13 @@ body {
 {
   opacity: 1;
   text-decoration: none;
+=======
+  color: #00ccff !important; 
+  opacity: 0.5;
+}
+.me-login-design-color:hover{
+  opacity: 1;
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
 }
 
 .me-login-button {

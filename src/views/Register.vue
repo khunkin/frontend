@@ -27,14 +27,17 @@
       <div class="me-login-design">
         <p>
           <span class="me-login-design-pure-text">
+<<<<<<< HEAD
             已有账号？  
+=======
+          已有账号？
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
           </span>
           <strong>
             <router-link to="/login" class="me-login-design-color">登录</router-link>
           </strong>
-
           <strong>
-            <router-link to="/" class="me-login-design-color">回首页</router-link>
+            <router-link to="/" class="me-login-design-color">返回首页</router-link>
           </strong>
         </p>
       </div>
@@ -113,6 +116,13 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
+=======
+body {
+  background: #00ccff;
+}
+
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
 #login {
   min-width: 100%;
   min-height: 100%;
@@ -176,7 +186,12 @@ export default {
   opacity: 0.5;
 }
 
+.me-login-design-pure-text{
+  opacity: 0.5;
+}
+
 .me-login-design-color {
+<<<<<<< HEAD
   transition: 0.1s;
   color: #00ccff !important;
   opacity: 0.5;
@@ -188,6 +203,13 @@ export default {
 {
   opacity: 1;
   text-decoration: none;
+=======
+  color: #00ccff !important; 
+  opacity: 0.5;
+}
+.me-login-design-color:hover{
+  opacity: 1;
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
 }
 
 .me-login-button {

@@ -1,14 +1,13 @@
 <template>
   <el-card :body-style="{ padding: '8px 18px' }">
     <div slot="header" class="me-tag-header">
-      <span>最热标签</span>
-      <a @click="moreTags" class="me-pull-right me-tag-more">查看全部</a>
+      <span>热门标签</span>
+      <a @click="moreTags" class="me-pull-right me-tag-more">more→</a>
     </div>
 
     <ul class="me-tag-list">
       <li class="me-tag-item" v-for="t in tags" :key="t.id">
-        <!--type="primary"-->
-        <el-button @click="tag(t.id)" size="mini" type="primary" round plain>{{t.tagname}}</el-button>
+        <el-button class="me-tag-button" @click="tag(t.id)" size="middle" type="text" round plain>{{t.tagname}}</el-button>
       </li>
     </ul>
   </el-card>
@@ -58,6 +57,7 @@ export default {
   color: white;
 }
 
+<<<<<<< HEAD
 .el-button--primary {
   border-color: rgba(140, 175, 206, 0.2);
   background-color: rgba(184, 236, 252, 0.432);
@@ -72,4 +72,25 @@ export default {
   background-color: rgba(76, 180, 231, 0.767);
   border-color: rgb(76, 180, 231, 0.467);
 }
+=======
+  .me-tag-item {
+    transition: all 0.5s;
+    display: inline-block;
+    padding: 4px;
+    font-size: 14px;
+    color: #00ccff;
+  }
+
+  .me-tag-item :hover {
+    text-decoration: underline;
+    color: #003366;
+    font-size: 15px;
+  }
+
+  .me-tag-button {
+    border: 0;
+    color: #00CCFF;
+    padding: 0;
+  } 
+>>>>>>> 8ad86f0c2e4e0bc7aafe97c397e3cfabe4a6f298
 </style>
