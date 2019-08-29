@@ -41,7 +41,10 @@ const router = new Router({
         },
         {
           path: '/myBlog',
-          component: r => require.ensure([], () => r(require('@/views/MyBlog')), 'myBlog')
+          component: r => require.ensure([], () => r(require('@/views/MyBlog')), 'myBlog'),
+          meta: {
+            requireLogin: true
+          }
         },
         {
           path: '/searchResultByTitle/:keyword',

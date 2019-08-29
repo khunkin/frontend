@@ -1,149 +1,140 @@
 <template>
-  <div v-title data-title="ForFun Find Yourself">
-    <el-container>
+  <div class="me-ct-body" v-title :data-title="title">
+    <el-container class="me-ct-container">
+      <el-main>
+        <div class="me-ct-title me-area">
+          <template v-if="this.$route.params.type === 'tag'">
+            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar" />
+            <h3 class="me-ct-name">{{ct.tagname}}</h3>
+          </template>
 
-      <el-main class="me-articles">
+          <template v-else>
+            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar" />
+            <h3 class="me-ct-name">{{ct.categoryname}}</h3>
+            <p>{{ct.description}}</p>
+          </template>
 
-        <card-article cardHeader="我的博客" :articles="myBlogs"></card-article>
+          <span class="me-ct-meta">{{ct.articles}} 文章</span>
+        </div>
 
+        <div class="me-ct-articles">
+          <article-scroll-page v-bind="article"></article-scroll-page>
+        </div>
       </el-main>
-
-      <el-aside>
-
-        <card-tag :tags="hotTags"></card-tag>
-
-
-        <card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
-
-        <card-archive cardHeader="文章归档" :archives="archives"></card-archive>
-
-        <card-article cardHeader="最新文章" :articles="newArticles"></card-article>
-
-      </el-aside>
-
     </el-container>
   </div>
 </template>
 
 <script>
-  import CardMe from '@/components/card/CardMe'
-  import CardArticle from '@/components/card/CardArticle'
-  import CardArchive from '@/components/card/CardArchive'
-  import CardTag from '@/components/card/CardTag'
-  import ArticleScrollPage from '@/views/common/ArticleScrollPage'
+import ArticleScrollPage from "@/views/common/ArticleScrollPage";
+import { getArticlesByTag } from "@/api/article";
+import { getTagDetail } from "@/api/tag";
+import defaultAvatar from "@/assets/img/logo.png";
 
-  import {getArticles, getHotArtices, getNewArtices, getArticlesByUser} from '@/api/article'
-  import {getHotTags} from '@/api/tag'
-  import {listArchives} from '@/api/article'
-
-  export default {
-    name: 'Index',
-    created() {
-      this.getHotArtices()
-      this.getNewArtices()
-      this.getHotTags()
-			this.listArchives()
-			this.getArticlesByUser()
+export default {
+  name: "BlogCategoryTag",
+  created() {
+    console.log('User ' + this.user.account);
+    this.article.query.userName = this.user.account
+    console.log('User ' + this.article.query.userName);
+    this.getCategoryOrTagAndArticles();
+  },
+  watch: {
+    $route: "getCategoryOrTagAndArticles"
+  },
+  data() {
+    return {
+      defaultAvatar: defaultAvatar,
+      ct: {},
+      article: {
+        query: {
+          userName: ""
+        }
+      }
+    };
+  },
+  computed: {
+    title() {
+      if (this.$route.params.type === "tag") {
+        return `${this.ct.tagname} - 标签 - For Fun`;
+      }
     },
-    data() {
+    user() {
+      let login = this.$store.state.account.length != 0;
+      let avatar = this.$store.state.avatar;
+      let account = this.$store.state.account;
       return {
-				myBlogs: [],
-        hotTags: [],
-        hotArticles: [],
-        newArticles: [],
-        archives: []
-      }
-    },
-    methods: {
-			getArticlesByUser() {
-				let that = this
-        getArticlesByUser(21).then(data => {
-				//console.log("Start fetching articles of current user");
-					//console.log(data);
-          that.myBlogs = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '用户个人文章加载失败!', showClose: true})
-          }
-        })
-			},
-      getHotArtices() {
-        let that = this
-        getHotArtices().then(data => {
-          that.hotArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热文章加载失败!', showClose: true})
-          }
-
-        })
-
-      },
-      getNewArtices() {
-        let that = this
-        getNewArtices().then(data => {
-          that.newArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最新文章加载失败!', showClose: true})
-          }
-
-        })
-
-      },
-      getHotTags() {
-        let that = this
-        getHotTags().then(data => {
-          that.hotTags = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热标签加载失败!', showClose: true})
-          }
-
-        })
-      },
-      listArchives() {
-        listArchives().then((data => {
-          this.archives = data.data
-        })).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
-          }
-        })
-      }
-
-    },
-    components: {
-      'x': CardMe,
-      'card-article': CardArticle,
-      'card-tag': CardTag,
-      ArticleScrollPage,
-      CardArchive
+        login,
+        avatar,
+        account
+      };
     }
+  },
+  methods: {
+    getCategoryOrTagAndArticles() {
+      let id = this.$route.params.id;
+      let type = this.$route.params.type;
+      if ("tag" === type) {
+        this.getTagDetail(id);
+        this.article.query.tagId = id;
+      } else {
+      }
+    },
+    getTagDetail(id) {
+      let that = this;
+      getTagDetail(id)
+        .then(data => {
+          that.ct = data.data;
+        })
+        .catch(error => {
+          if (error !== "error") {
+            that.$message({
+              type: "error",
+              message: "标签加载失败",
+              showClose: true
+            });
+          }
+        });
+    }
+  },
+  components: {
+    ArticleScrollPage
   }
+};
 </script>
 
-<style scoped>
+<style>
+.me-ct-body {
+  margin: 60px auto 140px;
+  min-width: 100%;
+}
 
-  .el-container {
-    width: 960px;
-  }
+.el-main {
+  padding: 0;
+}
 
-  .el-aside {
-    margin-left: 20px;
-    width: 260px;
-  }
+.me-ct-title {
+  text-align: center;
+  height: 150px;
+  padding: 20px;
+}
 
-  .el-main {
-    padding: 0px;
-    line-height: 16px;
-  }
+.me-ct-picture {
+  width: 60px;
+  height: 60px;
+}
 
-  .el-card {
-    border-radius: 0;
-  }
+.me-ct-name {
+  font-size: 28px;
+}
 
-  .el-card:not(:first-child) {
-    margin-top: 20px;
-  }
+.me-ct-meta {
+  font-size: 12px;
+  color: #969696;
+}
+
+.me-ct-articles {
+  width: 640px;
+  margin: 30px auto;
+}
 </style>

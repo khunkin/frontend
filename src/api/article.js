@@ -2,6 +2,7 @@ import request from '@/request'
 
 
 export function getArticles(query, page) {
+  console.log('Get articles with ' + JSON.stringify(query))
   return request({
     url: '/articles',
     method: 'get',
@@ -13,7 +14,9 @@ export function getArticles(query, page) {
       year: query.year,
       month: query.month,
       tagId: query.tagId,
-      categoryId: query.categoryId
+      categoryId: query.categoryId,
+      userName: query.userName,
+      userId: query.userId
     }
   })
 }
