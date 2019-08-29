@@ -6,10 +6,6 @@
     <base-header></base-header>
 
     <div class="me-login-box me-login-box-radius" :style="backgroundDiv">
-      <div class="login-title">
-        <h2 align="center" style="color:#8B0A50;size:px">登录</h2>
-      </div>
-
       <el-form ref="userForm" :model="userForm" :rules="rules">
         <el-form-item prop="account">
           <el-input placeholder="用户名" v-model="userForm.account"></el-input>
@@ -26,7 +22,10 @@
 
       <div class="me-login-design">
         <p>
-          没有账号？
+          <span class="me-login-design-pure-text">
+            没有账号？  
+          </span>
+          
           <strong>
             <router-link to="/register" class="me-login-design-color">注册</router-link>
           </strong>
@@ -47,7 +46,7 @@ export default {
   data() {
     return {
       backgroundDiv: {
-        backgroundImage: "url(" + require("../assets/img/background.jpg") + ")",
+        backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
@@ -76,7 +75,7 @@ export default {
           that.$store
             .dispatch("login", that.userForm)
             .then(() => {
-              that.$router.go(-1);
+              that.$router.push({ path: "/" });
             })
             .catch(error => {
               if (error !== "error") {
@@ -131,7 +130,7 @@ body {
 .me-login-box {
   position: absolute;
   width: 300px;
-  height: 258px;
+  height: 248px;
   background-color: white;
   margin-top: 150px;
   margin-left: -180px;
@@ -155,10 +154,25 @@ body {
   text-align: center;
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
+  margin-top: 48px;
+}
+
+.me-login-design-pure-text{
+  opacity: 0.5;
 }
 
 .me-login-design-color {
+  transition: 0.1s;
   color: #00ccff !important;
+  opacity: 0.5;
+}
+
+.me-login-design-color:focus,
+.me-login-design-color:active,
+.me-login-design-color:hover
+{
+  opacity: 1;
+  text-decoration: none;
 }
 
 .me-login-button {
@@ -167,5 +181,23 @@ body {
 
 .me-login-button button {
   width: 100%;
+}
+
+.el-button{
+  transition: 0.2s;
+  background-color: rgba(0, 238, 255,1);
+  border-color: rgba(0, 238, 255,1);
+}
+
+.el-button--primary:hover, 
+.el-button--primary:active, 
+.el-button:focus{
+  color: rgba(70, 138, 196, 1);
+  background-color: rgba(224, 247, 254, 1);
+  border-color: rgba(117, 197, 237, 1);
+}
+
+.el-form{
+  margin-top: 20px;
 }
 </style>

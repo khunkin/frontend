@@ -41,7 +41,7 @@ a {
   transition: none 86ms ease-out;
 }
 a:hover {
-  color: #5fb878;
+  color: #00ccff;
 }
 .me-area {
   background-color: #fff;
