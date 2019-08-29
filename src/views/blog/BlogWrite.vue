@@ -43,11 +43,6 @@
                       placeholder="请输入摘要">
             </el-input>
           </el-form-item>
-          <el-form-item label="文章分类" prop="category">
-            <el-select v-model="articleForm.category" value-key="id" placeholder="请选择文章分类">
-              <el-option v-for="c in categorys" :key="c.id" :label="c.categoryname" :value="c"></el-option>
-            </el-select>
-          </el-form-item>
 
           <el-form-item label="文章标签" prop="tags">
             <el-checkbox-group v-model="articleForm.tags">
@@ -68,7 +63,6 @@
   import BaseHeader from '@/views/BaseHeader'
   import MarkdownEditor from '@/components/markdown/MarkdownEditor'
   import {publishArticle, getArticleById} from '@/api/article'
-  import {getAllCategorys} from '@/api/category'
   import {getAllTags} from '@/api/tag'
 
   export default {
@@ -90,13 +84,11 @@
     data() {
       return {
         publishVisible: false,
-        categorys: [],
         tags: [],
         articleForm: {
           id: '',
           title: '',
           summary: '',
-          category: '',
           tags: [],
           editor: {
             value: '',
@@ -132,9 +124,6 @@
           summary: [
             {required: true, message: '请输入摘要', trigger: 'blur'},
             {max: 80, message: '不能大于80个字符', trigger: 'blur'}
-          ],
-          category: [
-            {required: true, message: '请选择文章分类', trigger: 'change'}
           ],
           tags: [
             {type: 'array', required: true, message: '请选择标签', trigger: 'change'}
@@ -201,7 +190,6 @@
               id: this.articleForm.id,
               title: this.articleForm.title,
               summary: this.articleForm.summary,
-              category: this.articleForm.category,
               tags: tags,
               body: {
                 content: this.articleForm.editor.value,
@@ -245,14 +233,6 @@
       },
       getCategorysAndTags() {
         let that = this
-        getAllCategorys().then(data => {
-          that.categorys = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章分类加载失败', showClose: true})
-          }
-        })
-
         getAllTags().then(data => {
           that.tags = data.data
         }).catch(error => {

@@ -36,9 +36,9 @@ export default {
 
 <style scoped>
 .me-tag-header {
-   font-size: 20px;
-  font-weight: 800;
-  font-family: FangSong;
+  font-size: 22px;
+  font-weight: 1000;
+  font-family: YouYuan;
 }
 
 .me-tag-more {

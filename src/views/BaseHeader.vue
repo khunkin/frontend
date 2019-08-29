@@ -1,14 +1,14 @@
 <template>
   <div class="hi-area">
-    <el-header class="me-area">
-      <el-row class="me-header">
-        <el-col :span="4" class="me-header-left">
+    <el-header class="me-area" style="padding-right:0px;">
+      <el-row class="me-header" type="flex" justify="center">
+        <el-col :span="3" class="me-header-left">
           <router-link to="/" class="me-title">
             <img src="../assets/img/logo.png" />
           </router-link>
         </el-col>
 
-        <el-col v-if="!simple" :span="16">
+        <el-col v-if="!simple" :span="17">
           <el-menu
             :router="true"
             menu-trigger="click"
@@ -16,14 +16,32 @@
             :default-active="activeIndex"
             mode="horizontal"
           >
-            <el-menu-item index="/">首页</el-menu-item>
-            <el-menu-item index="/myBlog">我的博客</el-menu-item>
-            <el-menu-item index="/tag/all">标签</el-menu-item>
+            <el-menu-item index="/">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shouye" />
+              </svg>&nbsp;首页
+            </el-menu-item>
+            <el-menu-item index="/myBlog">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-wode" />
+              </svg>&nbsp;我的博客
+            </el-menu-item>
+            <el-menu-item index="/tag/all">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-fenlei" />
+              </svg>&nbsp;标签
+            </el-menu-item>
             <el-menu-item index="/write">
-              <i class="el-icon-edit"></i>博文编写
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shuru" />
+              </svg>&nbsp;博文编写
             </el-menu-item>
 
-            <el-menu-item index="/follows">关注列表</el-menu-item>
+            <el-menu-item index="/follows">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-xingji" />
+              </svg>&nbsp;关注列表
+            </el-menu-item>
             <el-menu-item>
               <div>
                 <div class="search-input">
@@ -44,7 +62,7 @@
           <slot></slot>
         </template>
 
-        <el-col :span="4">
+        <el-col :span="3">
           <el-menu
             :router="true"
             menu-trigger="click"
@@ -146,7 +164,11 @@ export default {
 
 <style type="text/css">
 .el-button--text {
-  color: #00ccff;
+  color: #00aeda;
+}
+
+.el-button--text:hover {
+  color: #5fc8e2;
 }
 
 .el-header {

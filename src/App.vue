@@ -13,8 +13,7 @@ export default {
   data() {
     return {
       backgroundDiv: {
-        backgroundImage:
-          "url(" + require("../src/assets/img/test2.jpg") + ")",
+        backgroundImage: "url(" + require("../src/assets/img/test2.jpg") + ")",
         backgroundRepeat: "repeat",
         backgroundSize: "100%"
       }
@@ -59,5 +58,13 @@ body {
 
 .me-pull-right {
   float: right;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 </style>

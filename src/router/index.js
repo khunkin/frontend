@@ -59,11 +59,12 @@ const router = new Router({
           component: r => require.ensure([], () => r(require('@/views/blog/BlogView')), 'blogview')
         },
 
-        // :type can be `tag` or `category`
+        // :type can only be `tag`, not supporting other types currently
         {
           path: '/:type/all',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogAllCategoryTag')), 'blogallcategorytag')
         },
+        // :type can only be `tag`, not supporting other types currently
         {
           path: '/:type/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
