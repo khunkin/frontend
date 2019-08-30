@@ -100,7 +100,7 @@ const router = new Router({
     },
     {
       path: '*',
-      component: r => require.ensure([], () => r(require('@/views/page404')), 'page404')
+      component: r => require.ensure([], () => r(require('@/views/Page404')), 'page404')
     },
   ],
   scrollBehavior(to, from, savedPosition) {
