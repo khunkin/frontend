@@ -31,6 +31,9 @@
                   icon="el-icon-edit"
                 >编辑</el-button>
               </template>
+              <template v-else-if="isFollowing">
+                <el-button @click="unfollowAuthor()" size="mini" round>已关注</el-button>
+              </template>
               <template v-else>
                 <el-button @click="followAuthor()" size="mini" round>关注</el-button>
               </template>
@@ -107,7 +110,7 @@ import MarkdownEditor from "@/components/markdown/MarkdownEditor";
 import CommmentItem from "@/components/comment/CommentItem";
 import { viewArticle } from "@/api/article";
 import { getCommentsByArticle, publishComment } from "@/api/comment";
-import { follow } from "@/api/user";
+import { follow, isFollowing, unfollow } from "@/api/user";
 
 import default_avatar from "@/assets/img/default_avatar.png";
 
@@ -121,6 +124,7 @@ export default {
   },
   data() {
     return {
+      isFollowing: false,
       article: {
         id: "",
         title: "",
@@ -169,11 +173,40 @@ export default {
     }
   },
   methods: {
+    checkIsFollowing() {
+      let userId = this.$store.state.id;
+      let toCheck = this.article.author.id;
+      console.log("Check between " + userId + " " + toCheck);
+      isFollowing(userId, toCheck).then(data => {
+        this.isFollowing = data.data;
+        console.log(this.isFollowing ? "Following" : "Not yet");
+      });
+    },
     followAuthor() {
       let userId = this.$store.state.id;
       let toFollowId = this.article.author.id;
-      console.log(userId, toFollowId);
-      follow(userId, toFollowId);
+      console.log("Try follow " + userId, toFollowId);
+      follow(userId, toFollowId)
+        .then(data => {
+          this.isFollowing = true;
+        })
+        .catch(error => {
+          console.log("This is an error you do not want to show to others");
+        });
+    },
+    unfollowAuthor() {
+      let userId = this.$store.state.id;
+      let toFollowId = this.article.author.id;
+      console.log("Try unfollow " + userId, toFollowId);
+      unfollow(userId, toFollowId)
+        .then(data => {
+          this.isFollowing = false;
+        })
+        .catch(error => {
+          console.log(
+            "This is another error you do not want to show to others"
+          );
+        });
     },
     tagOrCategory(type, id) {
       this.$router.push({ path: `/${type}/${id}` });
@@ -186,9 +219,10 @@ export default {
       viewArticle(that.$route.params.id)
         .then(data => {
           Object.assign(that.article, data.data);
+          console.log(JSON.stringify(that.article.author.id));
           that.article.editor.value = data.data.body.content;
-
           that.getCommentsByArticle();
+          that.checkIsFollowing();
         })
         .catch(error => {
           if (error !== "error") {
@@ -293,10 +327,10 @@ export default {
 .me-view-picture {
   width: 40px;
   height: 40px;
-  border: 1px solid #ddd;
+  /* border: 1px solid black; */
   border-radius: 50%;
   vertical-align: middle;
-  background-color: #00ccff;
+  /* background-color: #00ccff; */
 }
 
 .me-view-info {

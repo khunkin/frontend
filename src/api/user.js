@@ -8,6 +8,13 @@ export function follow(userId, toFollow) {
     })
 }
 
+export function unfollow(userId, toUnFollow) {
+    return request({
+        url: `/follow/unfollow/${userId}/${toUnFollow}`,
+        method: 'get',
+    })
+}
+
 export function getFollowList(userName) {
     return request({
         url: `/follow/followList/${userName}`,
@@ -24,8 +31,15 @@ export function getUserById(userId) {
 
 export function updateUser(user) {
     return request({
-      url: '/users/update',
-      method: 'post',
-      data: user
+        url: '/users/update',
+        method: 'post',
+        data: user
     })
-  }
+}
+
+export function isFollowing(userId, followerId) {
+    return request({
+        url: `/follow/isFollowing/${userId}/${followerId}`,
+        method: 'get'
+    })
+}
