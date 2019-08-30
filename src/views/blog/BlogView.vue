@@ -22,7 +22,7 @@
             </el-col>
             <el-col :span="15"></el-col>
             <el-col :span="4">
-              <template v-if="user.account==article.author.nickname">
+              <template v-if="user.name==article.author.nickname">
                 <el-button
                   v-if="this.article.author.id == this.$store.state.id"
                   @click="editArticle()"
@@ -160,11 +160,11 @@ export default {
     user() {
       let login = this.$store.state.account.length != 0;
       let avatar = this.$store.state.avatar;
-      let account = this.$store.state.account;
+      let name = this.$store.state.name;
       return {
         login,
         avatar,
-        account
+        name
       };
     }
   },

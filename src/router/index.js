@@ -19,6 +19,11 @@ import store from '@/store'
 import { getToken } from '@/request/token'
 
 Vue.use(Router)
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 
 const router = new Router({
   routes: [
@@ -31,11 +36,9 @@ const router = new Router({
     },
     {
       path: '',
-      // name: 'Home',
       component: Home,
       children: [
         {
-          // base component
           path: '/',
           component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
         },
@@ -74,20 +77,11 @@ const router = new Router({
         },
         {
           path: '/follows',
-          component: r => require.ensure([], () => r(require('@/views/Follows')), 'follows')
+          component: r => require.ensure([], () => r(require('@/views/Follows')), 'follows'),
+          meta: {
+            requireLogin: true
+          }
         },
-        // {
-        //   path: '/search',
-        //   component: r => require.ensure([], () => r(require('@/views/Search')), 'search')
-        // },
-        // {
-        //   path: '/log',
-        //   component: r => require.ensure([], () => r(require('@/views/Log')), 'log')
-        // },
-        // {
-        //   path: '/messageBoard',
-        //   component: r => require.ensure([], () => r(require('@/views/MessageBoard')), 'messageboard')
-        // }
       ]
     },
     {
@@ -99,9 +93,17 @@ const router = new Router({
       component: r => require.ensure([], () => r(require('@/views/Register')), 'register')
     },
     {
+      path: '/userInfo',
+      component: r => require.ensure([], () => r(require('@/views/UserInfo')), 'userInfo'),
+      meta: {
+        requireLogin: true
+      }
+},
+    {
       path: '*',
       component: r => require.ensure([], () => r(require('@/views/page404')), 'page404')
     },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -112,7 +114,9 @@ const router = new Router({
   }
 })
 
-router.beforeEach((to, from, next) => {
+
+router.beforeResolve((to, from, next) => {
+  console.log("From " + JSON.stringify(from.path) + " to" + JSON.stringify(to.path));
 
   // if already logged in
   if (getToken()) {

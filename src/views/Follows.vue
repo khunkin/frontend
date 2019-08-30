@@ -7,7 +7,7 @@
             <ul class="me-allct-items">
               <li v-for="u in followList" :key="u.id" class="me-allct-item">
                 <div class="me-allct-content" style="background-size:100%">
-                  <a class="me-allct-info">
+                  <a class="me-allct-info"></a>
                     <img width="100px" :src="defaultAvatar" />
                   <h4 class="me-allct-name">{{u.account}}</h4>
                 </div>

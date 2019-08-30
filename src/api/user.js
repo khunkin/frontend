@@ -21,3 +21,11 @@ export function getUserById(userId) {
         method: 'get'
     })
 }
+
+export function updateUser(user) {
+    return request({
+      url: '/users/update',
+      method: 'post',
+      data: user
+    })
+  }

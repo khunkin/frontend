@@ -2,13 +2,12 @@
   <div class="me-ct-body" v-title :data-title="title">
     <el-container class="me-ct-container">
       <el-main>
-        <div class="me-ct-title me-area" style="margin-top:20px; background-image: url('https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1008350624,30248350&fm=26&gp=0.jpg');">
+        <div class="me-ct-title me-area" :style="backgroundDiv">
           <template>
-            <img :src="user.avatar?user.avatar:defaultAvatar" alt="头像" />
-            <h3 class="me-ct-name">{{user.account}}</h3>
+            <img :src="user.avatar" alt="头像" style="width:75px;"/>
+            <h3 class="me-ct-name">{{user.name}}</h3>
           </template>
         </div>
-
         <div class="me-ct-articles">
           <article-scroll-page v-bind="article"></article-scroll-page>
         </div>
@@ -21,14 +20,13 @@
 import ArticleScrollPage from "@/views/common/ArticleScrollPage";
 import { getArticlesByTag } from "@/api/article";
 import { getTagDetail } from "@/api/tag";
-import defaultAvatar from "@/assets/img/logo.png";
 
 export default {
   name: "BlogCategoryTag",
   created() {
-    console.log("User " + this.user.account);
+    console.log("User " + this.$store.state.account);
+    console.log("User " + this.$store.state.name);
     this.article.query.userName = this.user.account;
-    console.log("User " + this.article.query.userName);
     this.getCategoryOrTagAndArticles();
   },
   watch: {
@@ -36,12 +34,18 @@ export default {
   },
   data() {
     return {
-      defaultAvatar: defaultAvatar,
       ct: {},
       article: {
         query: {
           userName: ""
         }
+      },
+      backgroundDiv: {
+        backgroundImage:
+          "url(" + require("../../src/assets/img/test3.jpg") + ")",
+        backgroundRepeat: "repeat",
+        backgroundSize: "100%",
+        marginTop: "20px"
       }
     };
   },
@@ -55,10 +59,12 @@ export default {
       let login = this.$store.state.account.length != 0;
       let avatar = this.$store.state.avatar;
       let account = this.$store.state.account;
+      let name = this.$store.state.name;
       return {
         login,
         avatar,
-        account
+        account,
+        name
       };
     }
   },

@@ -65,7 +65,7 @@ export default {
 }
 
 .el-button--primary.is-plain:hover {
-  font-size: 18px;
+  font-size: 15px;
   border: none;
   transition: all 0.2s;
   color: white;

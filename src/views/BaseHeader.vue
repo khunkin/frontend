@@ -21,27 +21,45 @@
                 <use xlink:href="#icon-shouye" />
               </svg>&nbsp;首页
             </el-menu-item>
-            <el-menu-item index="/myBlog">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-wode" />
-              </svg>&nbsp;我的博客
-            </el-menu-item>
             <el-menu-item index="/tag/all">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-fenlei" />
               </svg>&nbsp;标签
             </el-menu-item>
-            <el-menu-item index="/write">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-shuru" />
-              </svg>&nbsp;博文编写
-            </el-menu-item>
-
-            <el-menu-item index="/follows">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-xingji" />
-              </svg>&nbsp;关注列表
-            </el-menu-item>
+            <template v-if="user.login">
+              <el-menu-item index="/write">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-shuru" />
+                </svg>&nbsp;博文编写
+              </el-menu-item>
+              <el-menu-item index="/myBlog">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode" />
+                </svg>&nbsp;我的博客
+              </el-menu-item>
+              <el-menu-item index="/follows">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-xingji" />
+                </svg>&nbsp;关注列表
+              </el-menu-item>
+            </template>
+            <template v-else>
+              <el-menu-item index="/write" style="visibility:visible">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-shuru" />
+                </svg>&nbsp;博文编写
+              </el-menu-item>
+              <el-menu-item index="/myBlog" style="visibility:hidden">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-wode" />
+                </svg>&nbsp;我的博客
+              </el-menu-item>
+              <el-menu-item index="/follows" style="visibility:hidden">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-xingji" />
+                </svg>&nbsp;关注列表
+              </el-menu-item>
+            </template>
             <el-menu-item>
               <div>
                 <div class="search-input">
@@ -82,12 +100,12 @@
             <template v-else>
               <el-submenu index>
                 <template slot="title">
-                  <!-- <img class="me-header-picture" :src="user.avatar" /> -->
+                  <img class="me-header-picture" :src="user.avatar" />
                   <span>{{user.account}}</span>
                 </template>
-                <el-menu-item index @click="logout">
-                  <i class="el-icon-back"></i>退出
-                </el-menu-item>
+                <el-menu-item index @click="logout">退出</el-menu-item>
+                <br />
+                <el-menu-item index @click="editUserInfo">编辑个人信息</el-menu-item>
               </el-submenu>
             </template>
             <!-- End If logged in -->
@@ -157,6 +175,9 @@ export default {
             that.$message({ message: error, type: "error", showClose: true });
           }
         });
+    },
+    editUserInfo() {
+      this.$router.push({ path: "/userInfo" });
     }
   }
 };
@@ -195,10 +216,10 @@ export default {
 .me-header-picture {
   width: 36px;
   height: 36px;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 50%;
   vertical-align: middle;
-  background-color: #00ccff;
+  /* background-color: #00ccff; */
 }
 .search-input {
   height: 30px;

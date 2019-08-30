@@ -183,15 +183,14 @@ body {
 
 .el-button {
   transition: 0.2s;
-  background-color: rgba(0, 238, 255, 1);
-  border-color: rgba(0, 238, 255, 1);
+  background-color: rgb(16, 145, 231);
+  border-color: rgba(120, 129, 129, 0.616);
 }
 
 .el-button--primary:hover,
 .el-button--primary:active,
 .el-button:focus {
-  color: rgba(70, 138, 196, 1);
-  background-color: rgba(224, 247, 254, 1);
+  background-color: rgb(98, 198, 228);
   border-color: rgba(117, 197, 237, 1);
 }
 
