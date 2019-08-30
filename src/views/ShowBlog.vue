@@ -4,8 +4,8 @@
       <el-main>
         <div class="me-ct-title me-area" :style="backgroundDiv">
           <template>
-            <img :src="user.avatar" alt="头像" style="width:75px;"/>
-            <h3 class="me-ct-name">{{user.name}}</h3>
+            <img :src="user.avatar" alt="头像" style="width:75px;" />
+            <h3 class="me-ct-name">{{user.nickname}}</h3>
           </template>
         </div>
         <div class="me-ct-articles">
@@ -20,16 +20,19 @@
 import ArticleScrollPage from "@/views/common/ArticleScrollPage";
 import { getArticlesByTag } from "@/api/article";
 import { getTagDetail } from "@/api/tag";
+import { getUserByAccount } from "@/api/user";
 
 export default {
-  name: "Myblog",
+  name: "ShowBlog",
   created() {
-    console.log("User " + this.$store.state.account);
-    console.log("User " + this.$store.state.name);
-    this.article.query.userName = this.user.account;
+    this.article.query.userName = this.$route.params.account;
+    getUserByAccount(this.article.query.userName).then(data => {
+      this.user = data.data;
+    });
   },
   data() {
     return {
+      user: {},
       article: {
         query: {
           userName: ""
@@ -49,22 +52,9 @@ export default {
       if (this.$route.params.type === "tag") {
         return `${this.ct.tagname} - 标签 - For Fun`;
       }
-    },
-    user() {
-      let login = this.$store.state.account.length != 0;
-      let avatar = this.$store.state.avatar;
-      let account = this.$store.state.account;
-      let name = this.$store.state.name;
-      return {
-        login,
-        avatar,
-        account,
-        name
-      };
     }
   },
-  methods: {
-  },
+  methods: {},
   components: {
     ArticleScrollPage
   }

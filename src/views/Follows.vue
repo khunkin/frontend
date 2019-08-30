@@ -7,9 +7,8 @@
             <ul class="me-allct-items">
               <li v-for="u in followList" :key="u.id" class="me-allct-item">
                 <div class="me-allct-content" style="background-size:100%">
-                  <a class="me-allct-info"></a>
-                    <img width="100px" :src="defaultAvatar" />
-                  <h4 class="me-allct-name">{{u.account}}</h4>
+                  <img width="100px" :src="u.avatar" />
+                  <h4 class="me-allct-name" @click="showBlogPage(u.account)">{{u.account}}</h4>
                 </div>
               </li>
             </ul>
@@ -51,6 +50,10 @@ export default {
         }
         this.followList = follows;
       });
+    },
+    showBlogPage(account) {
+      console.log("Fetching page of " + account);
+      this.$router.push({ path: `/showBlog/${account}` });
     }
   },
   components: {

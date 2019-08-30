@@ -43,3 +43,11 @@ export function isFollowing(userId, followerId) {
         method: 'get'
     })
 }
+
+export function getUserByAccount(account){
+    return request({
+        url: `/users/guser/${account}`,
+        method: 'get'
+    })
+
+}

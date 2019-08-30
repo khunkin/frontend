@@ -50,6 +50,13 @@ const router = new Router({
           }
         },
         {
+          path: '/showBlog/:account',
+          component: r => require.ensure([], () => r(require('@/views/showBlog')), 'showBlog'),
+          meta: {
+            requireLogin: true
+          }
+        },
+        {
           path: '/searchResultByTitle/:keyword',
           component: r => require.ensure([], () => r(require('@/views/SearchResult')), 'searchResult'),
           meta: {
@@ -98,7 +105,7 @@ const router = new Router({
       meta: {
         requireLogin: true
       }
-},
+    },
     {
       path: '*',
       component: r => require.ensure([], () => r(require('@/views/page404')), 'page404')
