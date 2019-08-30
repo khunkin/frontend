@@ -1,5 +1,5 @@
 <template>
-  <div id="login" v-title data-title="登录 - For Fun">
+  <div id="login" v-title data-title="登录 - For Fun" @keydown.enter="login('userForm')">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
     </video>-->
@@ -22,10 +22,8 @@
 
       <div class="me-login-design">
         <p>
-          <span class="me-login-design-pure-text">
-            没有账号？  
-          </span>
-          
+          <span class="me-login-design-pure-text">没有账号？</span>
+
           <strong>
             <router-link to="/register" class="me-login-design-color">注册</router-link>
           </strong>
@@ -39,14 +37,15 @@
 </template>
 
 <script>
-import BaseHeader from '@/views/BaseHeader'
+import BaseHeader from "@/views/BaseHeader";
 
 export default {
   name: "Login",
   data() {
     return {
       backgroundDiv: {
-        backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
+        backgroundImage:
+          "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
@@ -92,8 +91,8 @@ export default {
       });
     }
   },
-  components : {
-    'base-header': BaseHeader,
+  components: {
+    "base-header": BaseHeader
   }
 };
 </script>
@@ -157,7 +156,7 @@ body {
   margin-top: 48px;
 }
 
-.me-login-design-pure-text{
+.me-login-design-pure-text {
   opacity: 0.5;
 }
 
@@ -169,8 +168,7 @@ body {
 
 .me-login-design-color:focus,
 .me-login-design-color:active,
-.me-login-design-color:hover
-{
+.me-login-design-color:hover {
   opacity: 1;
   text-decoration: none;
 }
@@ -183,21 +181,21 @@ body {
   width: 100%;
 }
 
-.el-button{
+.el-button {
   transition: 0.2s;
-  background-color: rgba(0, 238, 255,1);
-  border-color: rgba(0, 238, 255,1);
+  background-color: rgba(0, 238, 255, 1);
+  border-color: rgba(0, 238, 255, 1);
 }
 
-.el-button--primary:hover, 
-.el-button--primary:active, 
-.el-button:focus{
+.el-button--primary:hover,
+.el-button--primary:active,
+.el-button:focus {
   color: rgba(70, 138, 196, 1);
   background-color: rgba(224, 247, 254, 1);
   border-color: rgba(117, 197, 237, 1);
 }
 
-.el-form{
+.el-form {
   margin-top: 20px;
 }
 </style>

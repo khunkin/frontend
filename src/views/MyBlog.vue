@@ -2,19 +2,11 @@
   <div class="me-ct-body" v-title :data-title="title">
     <el-container class="me-ct-container">
       <el-main>
-        <div class="me-ct-title me-area">
-          <template v-if="this.$route.params.type === 'tag'">
-            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar" />
-            <h3 class="me-ct-name">{{ct.tagname}}</h3>
+        <div class="me-ct-title me-area" style="margin-top:20px; background-image: url('https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1008350624,30248350&fm=26&gp=0.jpg');">
+          <template>
+            <img :src="user.avatar?user.avatar:defaultAvatar" alt="头像" />
+            <h3 class="me-ct-name">{{user.account}}</h3>
           </template>
-
-          <template v-else>
-            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar" />
-            <h3 class="me-ct-name">{{ct.categoryname}}</h3>
-            <p>{{ct.description}}</p>
-          </template>
-
-          <span class="me-ct-meta">{{ct.articles}} 文章</span>
         </div>
 
         <div class="me-ct-articles">
@@ -34,9 +26,9 @@ import defaultAvatar from "@/assets/img/logo.png";
 export default {
   name: "BlogCategoryTag",
   created() {
-    console.log('User ' + this.user.account);
-    this.article.query.userName = this.user.account
-    console.log('User ' + this.article.query.userName);
+    console.log("User " + this.user.account);
+    this.article.query.userName = this.user.account;
+    console.log("User " + this.article.query.userName);
     this.getCategoryOrTagAndArticles();
   },
   watch: {
@@ -136,5 +128,11 @@ export default {
 .me-ct-articles {
   width: 640px;
   margin: 30px auto;
+}
+
+.me-area {
+  background-size: 100%;
+  width: 640px;
+  margin: 0 auto;
 }
 </style>

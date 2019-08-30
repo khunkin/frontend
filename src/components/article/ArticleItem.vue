@@ -15,8 +15,10 @@
 
     <div class="me-artile-description">{{summary}}</div>
     <div class="me-article-footer">
-      <span class="me-article-author">
-        <i class="me-icon-author"></i>
+      <span class="me-article-author" style="">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-xiugaitouxiang" />
+        </svg>
         &nbsp;{{author.nickname}}
       </span>
 
@@ -101,5 +103,4 @@ export default {
   background-color: rgba(184, 236, 252, 0.432);
   color: rgba(31, 111, 181, 0.8);
 }
-
 </style>

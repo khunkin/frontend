@@ -22,36 +22,20 @@
             </el-col>
             <el-col :span="15"></el-col>
             <el-col :span="4">
-              <el-button
-                v-if="this.article.author.id == this.$store.state.id"
-                @click="editArticle()"
-                size="mini"
-                round
-                icon="el-icon-edit"
-              >编辑</el-button>
+              <template v-if="user.account==article.author.nickname">
+                <el-button
+                  v-if="this.article.author.id == this.$store.state.id"
+                  @click="editArticle()"
+                  size="mini"
+                  round
+                  icon="el-icon-edit"
+                >编辑</el-button>
+              </template>
+              <template v-else>
+                <el-button @click="followAuthor()" size="mini" round>关注</el-button>
+              </template>
             </el-col>
           </el-row>
-          <!-- <div class="me-view-author">
-            <a class>
-              <img class="me-view-picture" :src="article.author.avatar" />
-            </a>
-            <div class="me-view-info">
-              <span>{{article.author.nickname}}</span>
-              <div class="me-view-meta">
-                <span>{{article.createDate | format}}</span>
-                <span>阅读 {{article.viewCounts}}</span>
-                <span>评论 {{article.commentCounts}}</span>
-              </div>
-            </div>
-            <el-button
-              v-if="this.article.author.id == this.$store.state.id"
-              @click="editArticle()"
-              style="position: absolute;left: 60%;"
-              size="mini"
-              round
-              icon="el-icon-edit"
-            >编辑</el-button>
-          </div>-->
           <div class="me-view-content">
             <markdown-editor :editor="article.editor"></markdown-editor>
           </div>
@@ -70,15 +54,6 @@
               size="mini"
               type="success"
             >{{t.tagname}}</el-tag>
-            <!-- <el-button
-              @click="tagOrCategory('tag', t.id)"
-              size="mini"
-              type="primary"
-              v-for="t in article.tags"
-              :key="t.id"
-              round
-              plain
-            >{{t.tagname}}</el-button>-->
           </div>
           <div class="me-view-comment">
             <div class="me-view-comment-write">
@@ -132,6 +107,7 @@ import MarkdownEditor from "@/components/markdown/MarkdownEditor";
 import CommmentItem from "@/components/comment/CommentItem";
 import { viewArticle } from "@/api/article";
 import { getCommentsByArticle, publishComment } from "@/api/comment";
+import { follow } from "@/api/user";
 
 import default_avatar from "@/assets/img/default_avatar.png";
 
@@ -180,9 +156,25 @@ export default {
     },
     title() {
       return `${this.article.title} - 文章 - For Fun`;
+    },
+    user() {
+      let login = this.$store.state.account.length != 0;
+      let avatar = this.$store.state.avatar;
+      let account = this.$store.state.account;
+      return {
+        login,
+        avatar,
+        account
+      };
     }
   },
   methods: {
+    followAuthor() {
+      let userId = this.$store.state.id;
+      let toFollowId = this.article.author.id;
+      console.log(userId, toFollowId);
+      follow(userId, toFollowId);
+    },
     tagOrCategory(type, id) {
       this.$router.push({ path: `/${type}/${id}` });
     },

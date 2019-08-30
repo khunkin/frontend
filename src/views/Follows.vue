@@ -1,120 +1,123 @@
 <template>
-  <div>
-    <el-container>
-        <card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
-
-        <card-archive cardHeader="文章归档" :archives="archives"></card-archive>
-
-        <card-article cardHeader="最新文章" :articles="newArticles"></card-article>
-    </el-container>
-  </div>
+  <scroll-page>
+    <div class="me-allct-body">
+      <el-container class="me-allct-container">
+        <el-main>
+          <el-tabs>
+            <ul class="me-allct-items">
+              <li v-for="u in followList" :key="u.id" class="me-allct-item">
+                <div class="me-allct-content" style="background-size:100%">
+                  <a class="me-allct-info">
+                    <img width="100px" :src="defaultAvatar" />
+                  <h4 class="me-allct-name">{{u.account}}</h4>
+                </div>
+              </li>
+            </ul>
+          </el-tabs>
+        </el-main>
+      </el-container>
+    </div>
+  </scroll-page>
 </template>
 
 <script>
-  import CardMe from '@/components/card/CardMe'
-  import CardArticle from '@/components/card/CardArticle'
-  import CardArchive from '@/components/card/CardArchive'
-  import CardTag from '@/components/card/CardTag'
-  import ArticleScrollPage from '@/views/common/ArticleScrollPage'
+import CardArticle from "@/components/card/CardArticle";
+import ScrollPage from "@/components/scrollpage";
+import { getHotArtices } from "@/api/article";
+import { getFollowList, getUserById } from "@/api/user";
 
-  import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
-  import {getHotTags} from '@/api/tag'
-  import {listArchives} from '@/api/article'
-
-  export default {
-    name: 'Index',
-    created() {
-      this.getHotArtices()
-      this.getNewArtices()
-      this.getHotTags()
-      this.listArchives()
-    },
-    data() {
-      return {
-        hotTags: [],
-        hotArticles: [],
-        newArticles: [],
-        archives: []
-      }
-    },
-    methods: {
-      getHotArtices() {
-        let that = this
-        getHotArtices().then(data => {
-          that.hotArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热文章加载失败!', showClose: true})
-          }
-
-        })
-
-      },
-      getNewArtices() {
-        let that = this
-        getNewArtices().then(data => {
-          that.newArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最新文章加载失败!', showClose: true})
-          }
-
-        })
-
-      },
-      getHotTags() {
-        let that = this
-        getHotTags().then(data => {
-          that.hotTags = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热标签加载失败!', showClose: true})
-          }
-
-        })
-      },
-      listArchives() {
-        listArchives().then((data => {
-          this.archives = data.data
-        })).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
-          }
-        })
-      }
-
-    },
-    components: {
-      'card-me': CardMe,
-      'card-article': CardArticle,
-      'card-tag': CardTag,
-      ArticleScrollPage,
-      CardArchive
+export default {
+  name: "Index",
+  created() {
+    this.getFollowList();
+  },
+  data() {
+    return {
+      followList: [],
+      defaultAvatar:
+        "https://i.pinimg.com/474x/18/1b/67/181b67f3d93016e8fe06c52f567cc6ac.jpg"
+    };
+  },
+  methods: {
+    getFollowList() {
+      let userName = this.$store.state.account;
+      getFollowList(userName).then(data => {
+        let follows = [];
+        var user;
+        for (user of data.data) {
+          getUserById(user.followerId).then(data => {
+            follows.push(data.data);
+          });
+        }
+        this.followList = follows;
+      });
     }
+  },
+  components: {
+    "scroll-page": ScrollPage
   }
+};
 </script>
 
 <style scoped>
+.me-allct-body {
+  margin: 60px auto 140px;
+}
 
-  .el-container {
-    width: 960px;
-  }
+.me-allct-container {
+  width: 1000px;
+}
 
-  .el-aside {
-    margin-left: 20px;
-    width: 260px;
-  }
+.me-allct-items {
+  padding-top: 2rem;
+}
 
-  .el-main {
-    padding: 0px;
-    line-height: 16px;
-  }
+.me-allct-item {
+  width: 25%;
+  display: inline-block;
+  margin-bottom: 2.4rem;
+  padding: 0 0.7rem;
+  box-sizing: border-box;
+}
 
-  .el-card {
-    border-radius: 0;
-  }
+.me-allct-content {
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  transition: border-color 0.3s;
+  text-align: center;
+  padding: 1.5rem 0;
+}
 
-  .el-card:not(:first-child) {
-    margin-top: 20px;
-  }
+.me-allct-info {
+  cursor: pointer;
+}
+
+.me-allct-img {
+  margin: -40px 0 10px;
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+}
+
+.me-allct-name {
+  font-size: 21px;
+  font-weight: 150;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.me-allct-description {
+  min-height: 50px;
+  font-size: 13px;
+  line-height: 25px;
+}
+
+.me-allct-meta {
+  font-size: 12px;
+  color: #969696;
+}
 </style>

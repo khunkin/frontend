@@ -72,13 +72,13 @@ const router = new Router({
           path: '/:type/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
         },
+        {
+          path: '/follows',
+          component: r => require.ensure([], () => r(require('@/views/Follows')), 'follows')
+        },
         // {
         //   path: '/search',
         //   component: r => require.ensure([], () => r(require('@/views/Search')), 'search')
-        // },
-        // {
-        //   path: '/follows',
-        //   component: r => require.ensure([], () => r(require('@/views/Follows')), 'follows')
         // },
         // {
         //   path: '/log',

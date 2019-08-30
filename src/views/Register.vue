@@ -1,5 +1,5 @@
 <template>
-  <div id="register" v-title data-title="注册 - For Fun">
+  <div id="register" v-title data-title="注册 - For Fun" @keydown.enter="register('userForm')">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
     </video>-->
@@ -27,7 +27,7 @@
       <div class="me-login-design">
         <p>
           <span class="me-login-design-pure-text">
-            已有账号？  
+            已有账号？
           </span>
           <strong>
             <router-link to="/login" class="me-login-design-color">登录</router-link>
@@ -198,8 +198,8 @@ export default {
   transition: 0.2s;
 }
 
-.el-button--primary:hover, 
-.el-button--primary:active, 
+.el-button--primary:hover,
+.el-button--primary:active,
 .el-button:focus{
   color: rgba(70, 138, 196, 1);
   background-color: rgba(224, 247, 254, 1);
