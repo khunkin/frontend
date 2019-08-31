@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import {getToken, setToken, removeToken} from '@/request/token'
-import {login, getUserInfo, logout, register} from '@/api/login'
+import { getToken, setToken, removeToken } from '@/request/token'
+import { login, getUserInfo, logout, register } from '@/api/login'
 
 Vue.use(Vuex);
 
@@ -11,6 +11,7 @@ export default new Vuex.Store({
     account: '',
     name: '',
     avatar: '',
+    nickname: '',
     token: getToken(),
   },
   mutations: {
@@ -28,10 +29,13 @@ export default new Vuex.Store({
     },
     SET_ID: (state, id) => {
       state.id = id
+    },
+    SET_NICKNAME: (state, nickname) => {
+      state.nickname = nickname;
     }
   },
   actions: {
-    login({commit}, user) {
+    login({ commit }, user) {
       return new Promise((resolve, reject) => {
         login(user.account, user.password).then(data => {
           commit('SET_TOKEN', data.data['Oauth-Token'])
@@ -43,7 +47,7 @@ export default new Vuex.Store({
       })
     },
     // 获取用户信息
-    getUserInfo({commit, state}) {
+    getUserInfo({ commit, state }) {
       let that = this
       return new Promise((resolve, reject) => {
         getUserInfo().then(data => {
@@ -52,11 +56,13 @@ export default new Vuex.Store({
             commit('SET_NAME', data.data.nickname)
             commit('SET_AVATAR', data.data.avatar)
             commit('SET_ID', data.data.id)
+            commit('SET_NICKNAME', data.data.nickname)
           } else {
             commit('SET_ACCOUNT', '')
             commit('SET_NAME', '')
             commit('SET_AVATAR', '')
             commit('SET_ID', '')
+            commit('SET_NICKNAME', '')
             removeToken()
           }
           resolve(data)
@@ -66,7 +72,7 @@ export default new Vuex.Store({
       })
     },
     // 退出
-    logout({commit, state}) {
+    logout({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout().then(data => {
 
@@ -75,6 +81,7 @@ export default new Vuex.Store({
           commit('SET_NAME', '')
           commit('SET_AVATAR', '')
           commit('SET_ID', '')
+          commit('SET_NICKNAME', '')
           removeToken()
           resolve()
 
@@ -84,20 +91,21 @@ export default new Vuex.Store({
       })
     },
     // 前端 登出
-    fedLogOut({commit}) {
+    fedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         commit('SET_ACCOUNT', '')
         commit('SET_NAME', '')
         commit('SET_AVATAR', '')
         commit('SET_ID', '')
+        commit('SET_NICKNAME', '')
         removeToken()
         resolve()
       }).catch(error => {
         reject(error)
       })
     },
-    register({commit}, user) {
+    register({ commit }, user) {
       return new Promise((resolve, reject) => {
         register(user.account, user.nickname, user.password).then((data) => {
           commit('SET_TOKEN', data.data['Oauth-Token'])

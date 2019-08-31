@@ -38,3 +38,10 @@ export function register(account, nickname, password) {
     data
   })
 }
+
+export function getCapcha(phone) {
+  return request({
+    url: `/capcha/${phone}`,
+    method: 'get'
+  })
+}

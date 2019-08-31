@@ -1,5 +1,5 @@
 <template>
-  <div id="register" v-title data-title="注册 - For Fun" @keydown.enter="register('userForm')">
+  <div id="register" v-title data-title="注册 - For Fun" @keydown.enter="start('userForm')">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
     </video>-->
@@ -8,7 +8,7 @@
     <div class="me-login-box me-login-box-radius" :style="backgroundDiv">
       <el-form ref="userForm" :model="userForm" :rules="rules">
         <el-form-item prop="account">
-          <el-input placeholder="用户名" v-model="userForm.account"></el-input>
+          <el-input placeholder="手机号" v-model="userForm.account"></el-input>
         </el-form-item>
 
         <el-form-item prop="nickname">
@@ -19,9 +19,19 @@
           <el-input placeholder="密码" type="password" v-model="userForm.password"></el-input>
         </el-form-item>
 
-        <el-form-item size="small" class="me-login-button">
-          <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
-        </el-form-item>
+        <template v-if="!sentCapcha">
+          <el-form-item size="small" class="me-login-button">
+            <el-button type="primary" @click.native.prevent="getCapcha()">获取 4 四位验证码</el-button>
+          </el-form-item>
+        </template>
+        <template v-else>
+          <el-form-item prop="capcha">
+            <el-input placeholder="验证码" v-model="userForm.capcha"></el-input>
+          </el-form-item>
+          <el-form-item size="small" class="me-login-button">
+            <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
+          </el-form-item>
+        </template>
       </el-form>
 
       <div class="me-login-design">
@@ -42,30 +52,32 @@
 
 <script>
 import BaseHeader from "@/views/BaseHeader";
-import { register } from "@/api/login";
+import { register, getCapcha } from "@/api/login";
 
 export default {
   name: "Register",
   data() {
     return {
+      sentCapcha: false,
+      rightCapcha: "",
       backgroundDiv: {
-        // backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
       userForm: {
         account: "",
         nickname: "",
-        password: ""
+        password: "",
+        capcha: ""
       },
       rules: {
         account: [
           {
-            type: "email",
             required: true,
-            message: "请输入正确的邮箱",
+            message: "请输入正确的手机号",
             trigger: "blur"
-          }
+          },
+          { min: 11, max: 11, message: "请输入 11 位手机号" }
         ],
         nickname: [
           { required: true, message: "请输入昵称", trigger: "blur" },
@@ -74,12 +86,47 @@ export default {
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, max: 20, message: "密码必须为 6 到 20 位", trigger: "blur" }
+        ],
+        capcha: [
+          { required: true, message: "请输入验证码", trigger: "blur" },
+          { min: 4, max: 4, message: "验证码为 4 位", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
+    getCapcha() {
+      if (this.userForm.account.length === 11) {
+        console.log("Getting capcha of " + this.userForm.account);
+        getCapcha(this.userForm.account).then(data => {
+          this.rightCapcha = data.data.obj;
+          console.log("Right capcha is " + this.rightCapcha);
+          this.sentCapcha = true;
+        });
+      } else {
+        this.$message({
+          message: "请先填写正确的手机号",
+          type: "error",
+          showClose: true
+        });
+      }
+    },
+    start(formName) {
+      if (!this.sentCapcha) {
+        this.getCapcha();
+      } else {
+        this.register(formName);
+      }
+    },
     register(formName) {
+      if (this.rightCapcha != this.userForm.capcha) {
+        this.$message({
+          message: "验证码错误",
+          type: "error",
+          showClose: true
+        });
+        return;
+      }
       let that = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -147,7 +194,7 @@ export default {
 .me-login-box {
   position: absolute;
   width: 300px;
-  height: 306px;
+  height: 356px;
   background-color: white;
   margin-top: 150px;
   margin-left: -180px;
