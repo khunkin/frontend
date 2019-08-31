@@ -4,7 +4,7 @@
       <el-main>
         <div class="me-ct-title me-area" :style="backgroundDiv">
           <template>
-            <img :src="user.avatar" alt="头像" style="width:75px;" />
+            <img class="my-blog-avatar" :src="user.avatar" alt="头像" />
             <h3 class="me-ct-name">{{user.nickname}}</h3>
           </template>
         </div>
@@ -97,8 +97,17 @@ export default {
 }
 
 .me-area {
-  background-size: 100%;
+  /* background-size: 100%; */
   width: 640px;
   margin: 0 auto;
+}
+
+.my-blog-avatar {
+  width: 90px;
+  height: 90px;
+  /* border: 1px solid #ddd; */
+  border-radius: 50%;
+  vertical-align: middle;
+  /* background-color: #00ccff; */
 }
 </style>

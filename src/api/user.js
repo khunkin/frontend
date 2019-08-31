@@ -44,10 +44,16 @@ export function isFollowing(userId, followerId) {
     })
 }
 
-export function getUserByAccount(account){
+export function getUserByAccount(account) {
     return request({
         url: `/users/guser/${account}`,
         method: 'get'
     })
+}
 
+export function searchUser(nickName) {
+    return request({
+        url: `/users/searchUser/${nickName}`,
+        method: 'get'
+    })
 }

@@ -57,10 +57,17 @@ const router = new Router({
           }
         },
         {
-          path: '/searchResultByTitle/:keyword',
-          component: r => require.ensure([], () => r(require('@/views/SearchResult')), 'searchResult'),
+          path: '/searchUserByNickname/:nickName',
+          component: r => require.ensure([], () => r(require('@/views/SearchUserResult')), 'searchResult'),
           meta: {
             title: '搜索页面'
+          }
+        },
+        {
+          path: '/searchResultByTitle/:keyword',
+          component: r => require.ensure([], () => r(require('@/views/SearchResult')), 'searchUserResult'),
+          meta: {
+            title: '用户搜索页面'
           }
         },
         {

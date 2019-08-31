@@ -6,11 +6,10 @@
           <ul class="me-allct-items">
             <li v-for="t in tags" @click="view(t.id)" :key="t.id" class="me-allct-item">
               <div class="me-allct-content">
-                <a class="me-allct-info">
-                  <img class="me-allct-img" :src="t.avatar?t.avatar:defaultAvatar" />
+                <a width="100px" class="me-allct-info">
+                  <img class="me-allct-img" :src="t.avatar" />
                   <h4 class="me-allct-name">{{t.tagname}}</h4>
                 </a>
-
                 <div class="me-allct-meta">
                   <span>{{t.articles}} 文章</span>
                 </div>
@@ -95,7 +94,7 @@ export default {
         });
     }
   },
-  //组件内的守卫 调整body的背景色
+
   beforeRouteEnter(to, from, next) {
     window.document.body.style.backgroundColor = "#fff";
     next();
@@ -129,10 +128,7 @@ export default {
 }
 
 .me-allct-content {
-  display: inline-block;
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid #f1f1f1;
+  background-color: rgb(1, 1, 1, 0);
   transition: border-color 0.3s;
   text-align: center;
   padding: 1.5rem 0;
@@ -145,7 +141,7 @@ export default {
 .me-allct-img {
   margin: -40px 0 10px;
   width: 60px;
-  height: 60px;
+  /* height: 60px; */
   vertical-align: middle;
 }
 
