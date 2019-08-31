@@ -26,9 +26,7 @@
 
       <div class="me-login-design">
         <p>
-          <span class="me-login-design-pure-text">
-            已有账号？
-          </span>
+          <span class="me-login-design-pure-text">已有账号？</span>
           <strong>
             <router-link to="/login" class="me-login-design-color">登录</router-link>
           </strong>
@@ -43,7 +41,7 @@
 </template>
 
 <script>
-import BaseHeader from '@/views/BaseHeader'
+import BaseHeader from "@/views/BaseHeader";
 import { register } from "@/api/login";
 
 export default {
@@ -51,7 +49,7 @@ export default {
   data() {
     return {
       backgroundDiv: {
-        backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
+        // backgroundImage: "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
@@ -62,16 +60,20 @@ export default {
       },
       rules: {
         account: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          {
+            type: "email",
+            required: true,
+            message: "请输入正确的邮箱",
+            trigger: "blur"
+          }
         ],
         nickname: [
           { required: true, message: "请输入昵称", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { min: 4, max: 16, message: "昵称必须为 4 到 16 位", trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { min: 6, max: 20, message: "密码必须为 6 到 20 位", trigger: "blur" }
         ]
       }
     };
@@ -106,8 +108,8 @@ export default {
       });
     }
   },
-  components : {
-    'base-header': BaseHeader,
+  components: {
+    "base-header": BaseHeader
   }
 };
 </script>
@@ -118,7 +120,7 @@ export default {
   min-height: 100%;
 }
 
-.el-form{
+.el-form {
   margin-top: 20px;
 }
 
@@ -172,7 +174,7 @@ export default {
   margin-top: 45px;
 }
 
-.me-login-design-pure-text{
+.me-login-design-pure-text {
   opacity: 0.5;
 }
 
@@ -184,8 +186,7 @@ export default {
 
 .me-login-design-color:focus,
 .me-login-design-color:active,
-.me-login-design-color:hover
-{
+.me-login-design-color:hover {
   opacity: 1;
   text-decoration: none;
 }
@@ -194,21 +195,19 @@ export default {
   text-align: center;
 }
 
-.el-button--primary{
+.el-button--primary {
   transition: 0.2s;
 }
 
 .el-button--primary:hover,
 .el-button--primary:active,
-.el-button:focus{
+.el-button:focus {
   color: rgba(70, 138, 196, 1);
   background-color: rgba(224, 247, 254, 1);
   border-color: rgba(117, 197, 237, 1);
 }
 
-
 .me-login-button button {
   width: 100%;
 }
-
 </style>

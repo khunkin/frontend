@@ -68,11 +68,11 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入昵称", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { min: 4, max: 16, message: "昵称必须为 4 到 16 位", trigger: "blur" }
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { min: 6, max: 20, message: "密码必须为 6 到 20 位", trigger: "blur" }
         ]
       }
     };

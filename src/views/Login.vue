@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       backgroundDiv: {
-        backgroundImage:
-          "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
+        // backgroundImage:
+        // "url('https://i.pinimg.com/564x/f7/41/5d/f7415de43c5039a131feedfa42e8b019.jpg')",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
       },
@@ -55,12 +55,12 @@ export default {
       },
       rules: {
         account: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { required: true, message: "请输入用户名", trigger: "blur" }
+          // { max: 10, message: "不能大于10个字符", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
-          { max: 10, message: "不能大于10个字符", trigger: "blur" }
+          { required: true, message: "请输入密码", trigger: "blur" }
+          // { max: 10, message: "不能大于10个字符", trigger: "blur" }
         ]
       }
     };
