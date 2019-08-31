@@ -57,3 +57,24 @@ export function searchUser(nickName) {
         method: 'get'
     })
 }
+
+export function isLiking(userId, articleId) {
+    return request({
+        url: `/like/isLiking/${userId}/${articleId}`,
+        method: 'get'
+    })
+}
+
+export function like(userId, articleId) {
+    return request({
+        url: `/like/${userId}/${articleId}`,
+        method: 'get'
+    })
+}
+
+export function unlike(userId, articleId) {
+    return request({
+        url: `/like/unlike/${userId}/${articleId}`,
+        method: 'get'
+    })
+}

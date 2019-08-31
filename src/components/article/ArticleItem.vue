@@ -8,14 +8,18 @@
         &nbsp;{{commentCounts}}
       </span>
       <span class="me-pull-right me-article-count">
-        <i class="el-icon-view"></i>
+        <i class="icon-liulan"></i>
         &nbsp;{{viewCounts}}
+      </span>
+      <span class="me-pull-right me-article-count">
+        <i class="icon-xihuan"></i>
+        &nbsp;{{likeCount}}
       </span>
     </div>
 
     <div class="me-artile-description">{{summary}}</div>
     <div class="me-article-footer">
-      <span class="me-article-author" style="">
+      <span class="me-article-author" style>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-xiugaitouxiang" />
         </svg>
@@ -46,7 +50,8 @@ export default {
     summary: String,
     author: Object,
     tags: Array,
-    createDate: String
+    createDate: String,
+    likeCount: Number
   },
   data() {
     return {};

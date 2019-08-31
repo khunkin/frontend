@@ -22,7 +22,8 @@
             </el-col>
             <el-col :span="15"></el-col>
             <el-col :span="4">
-              <template v-if="user.name==article.author.nickname">
+              <template v-if="!user.login"></template>
+              <template v-else-if="user.name==article.author.nickname">
                 <el-button
                   v-if="this.article.author.id == this.$store.state.id"
                   @click="editArticle()"
@@ -57,6 +58,19 @@
               size="mini"
               type="success"
             >{{t.tagname}}</el-tag>
+            <template v-if="!user.login"></template>
+            <template v-else-if="!isLiking">
+              <el-button style="float: right;" @click="likeArticle()" size="mini" round>
+                <i class="icon-xihuan"></i>
+                &nbsp;Like
+              </el-button>
+            </template>
+            <template v-else>
+              <el-button style="float: right;" @click="unLikeArticle()" size="mini" round>
+                <i class="icon-xihuan"></i>
+                &nbsp;Unlike
+              </el-button>
+            </template>
           </div>
           <div class="me-view-comment">
             <div class="me-view-comment-write">
@@ -110,7 +124,14 @@ import MarkdownEditor from "@/components/markdown/MarkdownEditor";
 import CommmentItem from "@/components/comment/CommentItem";
 import { viewArticle } from "@/api/article";
 import { getCommentsByArticle, publishComment } from "@/api/comment";
-import { follow, isFollowing, unfollow } from "@/api/user";
+import {
+  follow,
+  isFollowing,
+  unfollow,
+  isLiking,
+  like,
+  unlike
+} from "@/api/user";
 
 import default_avatar from "@/assets/img/default_avatar.png";
 
@@ -125,6 +146,7 @@ export default {
   data() {
     return {
       isFollowing: false,
+      isLiking: false,
       article: {
         id: "",
         title: "",
@@ -181,6 +203,34 @@ export default {
         this.isFollowing = data.data;
         console.log(this.isFollowing ? "Following" : "Not yet");
       });
+      isLiking(userId, this.article.id).then(data => {
+        this.isLiking = data.data;
+        console.log(this.isLiking ? "Liking" : "Not yet (liking thing)");
+      });
+    },
+    likeArticle() {
+      let userId = this.$store.state.id;
+      let articleId = this.article.id;
+      console.log("Try like " + userId + ", " + articleId);
+      like(userId, articleId)
+        .then(data => {
+          this.isLiking = true;
+        })
+        .catch(error => {
+          console.log("This is an error you do not want to show to others");
+        });
+    },
+    unLikeArticle() {
+      let userId = this.$store.state.id;
+      let articleId = this.article.id;
+      console.log("Try unlike " + userId + ", " + articleId);
+      unlike(userId, articleId)
+        .then(data => {
+          this.isLiking = false;
+        })
+        .catch(error => {
+          console.log("This is an error you do not want to show to others");
+        });
     },
     followAuthor() {
       let userId = this.$store.state.id;
@@ -222,7 +272,9 @@ export default {
           console.log(JSON.stringify(that.article.author.id));
           that.article.editor.value = data.data.body.content;
           that.getCommentsByArticle();
-          that.checkIsFollowing();
+          if (this.user.login) {
+            that.checkIsFollowing();
+          }
         })
         .catch(error => {
           if (error !== "error") {
