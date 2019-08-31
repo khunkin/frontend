@@ -26,7 +26,14 @@
         &nbsp;{{author.nickname}}
       </span>
 
-      <el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success">{{t.tagname}}</el-tag>
+      <el-tag
+        @click="tagOrCategory('tag', t.id)"
+        v-for="t in tags"
+        :key="t.id"
+        class="me-view-tag-item"
+        size="mini"
+        type="success"
+      >{{t.tagname}}</el-tag>
 
       <span class="me-pull-right me-article-count">
         <i class="el-icon-time"></i>
@@ -53,12 +60,18 @@ export default {
     createDate: String,
     likeCount: Number
   },
+  created() {
+    console.log("Tags" + JSON.stringify(this.tags));
+  },
   data() {
     return {};
   },
   methods: {
     view(id) {
       this.$router.push({ path: `/view/${id}` });
+    },
+    tagOrCategory(type, id) {
+      this.$router.push({ path: `/${type}/${id}` });
     }
   }
 };
@@ -107,5 +120,22 @@ export default {
   border-color: rgba(140, 175, 206, 0.2);
   background-color: rgba(184, 236, 252, 0.432);
   color: rgba(31, 111, 181, 0.8);
+}
+
+.me-view-tag-item {
+  margin: 0 4px;
+  border-color: rgba(140, 175, 206, 0.2);
+  background-color: rgba(184, 236, 252, 0.432);
+  color: rgba(31, 111, 181, 0.8);
+}
+
+.me-view-tag-item:hover {
+  /* font-size: 12px; */
+  /* border: none; */
+  transition: all 0.2s;
+  color: white;
+  background-color: rgba(76, 180, 231, 0.767);
+  border-color: rgb(76, 180, 231, 0.467);
+  cursor: pointer;
 }
 </style>
