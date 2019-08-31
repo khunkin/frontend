@@ -181,7 +181,7 @@ export default {
       return default_avatar;
     },
     title() {
-      return `${this.article.title} - 文章 - For Fun`;
+      return `${this.article.title} - 文章 - MYDG`;
     },
     user() {
       let login = this.$store.state.account.length != 0;

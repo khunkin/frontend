@@ -1,5 +1,5 @@
 <template>
-  <div id="register" v-title data-title="注册 - For Fun" @keydown.enter="start('userForm')">
+  <div id="register" v-title data-title="注册 - MYDG" @keydown.enter="start('userForm')">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
     </video>-->

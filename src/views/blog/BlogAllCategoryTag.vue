@@ -52,9 +52,9 @@ export default {
     },
     categoryTagTitle() {
       if (this.currentActiveName == "category") {
-        return "文章分类 - For Fun";
+        return "文章分类 - MYDG";
       }
-      return "标签 - For Fun";
+      return "标签 - MYDG";
     }
   },
   methods: {

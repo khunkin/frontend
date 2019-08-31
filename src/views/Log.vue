@@ -215,7 +215,7 @@ export default {
   },
   computed: {
     title() {
-      return "日志 - For Fun";
+      return "日志 - MYDG";
     }
   }
 };

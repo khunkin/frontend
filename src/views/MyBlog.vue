@@ -47,7 +47,7 @@ export default {
   computed: {
     title() {
       if (this.$route.params.type === "tag") {
-        return `${this.ct.tagname} - 标签 - For Fun`;
+        return `${this.ct.tagname} - 标签 - MYDG`;
       }
     },
     user() {
